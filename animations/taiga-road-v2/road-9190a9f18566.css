@@ -1,0 +1,7 @@
+/* Preview-only layer. Section dimensions and spacing are inherited unchanged. */
+#road-preview {position:absolute;left:0;right:0;overflow:hidden;pointer-events:none;z-index:0;}
+#about,#industry,#quiz,#map,.mp-footer {z-index:1;}
+#road-preview svg {display:block;}
+@media (prefers-reduced-motion:reduce){#road-preview *{animation:none!important;transition:none!important;}}
+
+.road-truck{filter:drop-shadow(3px 5px 3px #15212c40)}
