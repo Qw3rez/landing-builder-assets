@@ -1,0 +1,454 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>YANKOM — демо</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800;900&display=swap" rel="stylesheet"><style>html,body{margin:0;background:#0d1522}</style><script>window.YM_ASSETS="assets/"</script></head><body><!-- YANKOM / Сцена 01: ночной город с высоты самолёта, движение грузов по улицам. -->
+<style>
+.ym1{position:relative;height:260vh;z-index:1;background:#071321;color:#fff;font-family:'Montserrat',Arial,sans-serif}
+.ym1 *{box-sizing:border-box}
+.ym1__stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate;background:#071321}
+.ym1__city{position:absolute;inset:-5%;will-change:transform;transform-origin:50% 50%}
+.ym1__aerial{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.72) brightness(.79)}
+.ym1__traffic{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none}
+.ym1__veil{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 47% at 50% 48%,rgba(3,12,23,.74),rgba(3,12,23,.28) 65%,transparent 100%),linear-gradient(180deg,rgba(2,10,20,.3),transparent 35%,transparent 70%,rgba(2,10,20,.55));box-shadow:inset 0 0 130px #02081255}
+.ym1__content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 90px;z-index:2;will-change:opacity,transform}
+.ym1__eyebrow{font-size:clamp(10px,.8vw,15px);font-weight:500;letter-spacing:.33em;color:#d8ba8a;margin:0 0 25px;text-transform:uppercase}
+.ym1__name{margin:0;font-weight:900;font-style:italic;font-size:clamp(70px,13.4vw,250px);line-height:.98;letter-spacing:-.055em;padding:0 .1em 0 0;color:#f6f9ff;text-shadow:0 4px 55px #07132199,0 1px 0 #fff}
+.ym1__rule{width:50px;height:1px;flex-shrink:0;background:linear-gradient(90deg,transparent,#f4c277,transparent);margin:30px 0 24px}
+.ym1__description{max-width:720px;margin:0;font-size:clamp(16px,1.3vw,25px);line-height:1.65;font-weight:400;color:#e5eaf0;text-wrap:balance;text-shadow:0 2px 18px #020812}
+.ym1__description strong{display:block;font-size:clamp(21px,1.75vw,34px);font-weight:500;line-height:1.35;color:#fff;margin:0 0 12px;letter-spacing:-.02em}
+.ym1__hint{position:absolute;bottom:35px;left:0;right:0;text-align:center;color:#c0cbd8;font-size:9px;letter-spacing:.24em;z-index:3;pointer-events:none}
+.ym1__hint i{display:block;width:1px;height:30px;margin:11px auto 0;background:linear-gradient(#f2bf72,transparent)}
+.ym1__haze{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 65% 65%,rgba(238,155,78,.26),transparent 65%),radial-gradient(ellipse at 30% 40%,rgba(91,145,206,.36),transparent 75%);z-index:4}
+.ym1__fade{position:absolute;inset:0;opacity:0;pointer-events:none;z-index:5;background-color:#071321;background-image:linear-gradient(180deg,rgba(2,9,18,.22),transparent 48%,rgba(3,10,18,.25)),linear-gradient(90deg,rgba(2,9,18,.2),transparent 65%),var(--ym-terminal);background-size:cover;background-position:50% 60%}
+@media(max-width:767px){.ym1__content{padding:105px 23px 100px}.ym1__eyebrow{font-size:8px;letter-spacing:.2em;margin-bottom:23px}.ym1__name{font-size:17vw;letter-spacing:-.06em}.ym1__rule{margin:25px 0 22px}.ym1__description{font-size:14px;max-width:420px;line-height:1.7}.ym1__description strong{font-size:22px;margin-bottom:15px}.ym1__hint{bottom:28px}.ym1__fade{background-position:65% 50%}}
+@media(prefers-reduced-motion:reduce){.ym1__city{transform:none!important}.ym1__haze,.ym1__fade{display:none}.ym1{height:100svh;min-height:560px}.ym1__stage{min-height:560px}}
+
+/* Проход сквозь облачный слой: смена города на ангар скрыта внутри облаков. */
+.ym1__clouds{position:absolute;inset:0;z-index:6;opacity:0;pointer-events:none;overflow:hidden;will-change:opacity;contain:layout paint}
+.ym1__cloud-bank{position:absolute;left:-35%;top:-35%;width:170%;height:170%;object-fit:cover;object-position:center;filter:brightness(.7) saturate(.66);will-change:transform;user-select:none}
+.ym1__cloud-bank--back{opacity:.6;filter:brightness(.63) saturate(.7);transform:scaleX(-1)}
+@media(max-width:767px){.ym1__cloud-bank{left:-65%;top:-40%;width:230%;height:180%}}
+@media(prefers-reduced-motion:reduce){.ym1__clouds{display:none}}
+</style>
+<section class="ym1" id="ymScene1" aria-labelledby="ym1Heading">
+ <div class="ym1__stage" id="ym1Stage">
+  <div class="ym1__city" id="ym1City">
+   <img class="ym1__aerial" id="ym1Aerial" alt="" width="1672" height="941" fetchpriority="high" decoding="async">
+   <canvas class="ym1__traffic" id="ym1Traffic" aria-hidden="true"></canvas>
+  </div>
+  <div class="ym1__veil" aria-hidden="true"></div>
+  <div class="ym1__content" id="ym1Content">
+   <p class="ym1__eyebrow">Организация грузоперевозок</p>
+   <h1 class="ym1__name" id="ym1Heading">YANKOM</h1>
+   <div class="ym1__rule" aria-hidden="true"></div>
+   <p class="ym1__description"><strong>Соединяем ваш груз с нужным транспортом.</strong>Подбираем фуру и водителя, организуем перевозку<br class="ym1__desktop-break"> и контролируем доставку от погрузки до получателя.</p>
+  </div>
+  <div class="ym1__hint" id="ym1Hint">ЛОГИСТИКА В ДВИЖЕНИИ<i></i></div>
+  <div class="ym1__haze" id="ym1Haze" aria-hidden="true"></div>
+  <div class="ym1__fade" id="ym1Fade" aria-hidden="true"></div>
+  <div class="ym1__clouds" id="ym1Clouds" aria-hidden="true"><img class="ym1__cloud-bank" id="ym1CloudFront" alt="" width="1672" height="941" decoding="async"><img class="ym1__cloud-bank ym1__cloud-bank--back" id="ym1CloudBack" alt="" width="1672" height="941" decoding="async"></div>
+ </div>
+</section>
+<script>
+(function(){
+ 'use strict';
+ var sec=document.getElementById('ymScene1'),stage=document.getElementById('ym1Stage'),city=document.getElementById('ym1City'),canvas=document.getElementById('ym1Traffic'),image=document.getElementById('ym1Aerial'),content=document.getElementById('ym1Content'),hint=document.getElementById('ym1Hint'),fade=document.getElementById('ym1Fade'),haze=document.getElementById('ym1Haze');
+ var clouds=document.getElementById('ym1Clouds'),cloudFront=document.getElementById('ym1CloudFront'),cloudBack=document.getElementById('ym1CloudBack');
+ var assets=window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/';
+ cloudFront.src=cloudBack.src=assets+'scene1-cloud-bridge-v1.png';
+ image.src=assets+'scene1-aerial-city-v1.jpg';fade.style.setProperty('--ym-terminal','url("'+assets+'scene2-terminal.jpg")');
+ // Прогрев: тяжёлые картинки декодируются заранее, а не в момент первого показа (иначе лаг на переходе).
+ [image,cloudFront].forEach(function(img){if(img.decode)img.decode().catch(function(){})});
+ var warmTerminal=new Image();warmTerminal.src=assets+'scene2-terminal.jpg';if(warmTerminal.decode)warmTerminal.decode().catch(function(){});
+ var ctx=canvas.getContext('2d'),motion=matchMedia('(prefers-reduced-motion:reduce)'),raf=0,last=0,time=0,visible=true,w=0,h=0,scale=1,ox=0,oy=0,dpr=1,vehicles=[],mx=0,my=0,tx=0,ty=0,visualProgress=null,progressTime=0,trailGrad=null;
+ function clamp(v){return Math.max(0,Math.min(1,v))}function seg(v,a,b){return clamp((v-a)/(b-a))}function smooth(v){return v*v*v*(v*(v*6-15)+10)}
+ // Маршруты сняты с дорог фонового снимка (координаты исходника 1672 × 941).
+ var lines=[
+  [[0,211],[280,210],[640,208],[1080,209],[1440,206],[1672,206]],
+  [[0,465],[275,465],[640,463],[1083,461],[1439,460],[1672,460]],
+  [[0,704],[274,702],[642,701],[1084,701],[1441,700],[1672,701]],
+  [[280,0],[275,85],[275,210],[274,465],[274,702],[275,841],[275,941]],
+  [[640,0],[641,208],[640,463],[641,701],[639,887],[642,941]],
+  [[1086,0],[1084,209],[1085,461],[1084,701],[1084,900],[1083,941]],
+  [[1441,0],[1438,206],[1439,460],[1441,700],[1442,850],[1440,941]],
+  [[0,150],[80,121],[165,87],[275,76],[415,48],[640,35],[1082,24],[1162,0]],
+  [[53,0],[59,93],[35,211],[27,332],[24,465],[29,595],[52,704],[105,775],[196,823],[275,841],[411,866],[524,889],[640,887],[824,882],[995,885],[1084,904],[1234,915],[1370,892],[1440,850],[1526,797],[1590,701],[1636,585],[1654,460],[1647,330],[1620,206],[1591,98],[1571,0]],
+  [[275,465],[640,463],[640,701],[1084,701]],
+  [[1084,209],[1085,461],[1439,460],[1441,700]],
+  [[275,210],[274,465],[640,463],[641,701]]
+ ];
+ var routes=lines.map(function(points){var distances=[0],length=0;for(var i=1;i<points.length;i++){length+=Math.hypot(points[i][0]-points[i-1][0],points[i][1]-points[i-1][1]);distances.push(length)}return {points:points,distances:distances,length:length}});
+ function sample(route,distance){distance=((distance%route.length)+route.length)%route.length;var i=1;while(i<route.distances.length-1&&route.distances[i]<distance)i++;var a=route.points[i-1],b=route.points[i],f=(distance-route.distances[i-1])/(route.distances[i]-route.distances[i-1]);return {x:a[0]+(b[0]-a[0])*f,y:a[1]+(b[1]-a[1])*f,angle:Math.atan2(b[1]-a[1],b[0]-a[0])}}
+ function sprite(color){var c=document.createElement('canvas');c.width=c.height=40;var g=c.getContext('2d'),r=g.createRadialGradient(20,20,0,20,20,20);r.addColorStop(0,color);r.addColorStop(.13,color);r.addColorStop(.4,'rgba(255,190,95,.15)');r.addColorStop(1,'rgba(255,190,95,0)');g.fillStyle=r;g.fillRect(0,0,40,40);return c}
+ var warm=sprite('rgba(255,224,173,.95)'),cool=sprite('rgba(220,239,255,.95)');
+ function resize(){w=city.clientWidth;h=city.clientHeight;dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);scale=Math.max(w/1672,h/941);ox=(w-1672*scale)/2;oy=(h-941*scale)/2;vehicles=[];var count=innerWidth<768?92:210;for(var i=0;i<count;i++){var route=routes[i%routes.length],seed=(Math.sin(i*127.1+19.7)*43758.5453)%1;seed=Math.abs(seed);vehicles.push({route:route,offset:seed*route.length,speed:7+seed*10,direction:i%2?1:-1,size:.8+seed*.5,warm:i%4!==0})}draw();kick()}
+ function draw(){
+  if(!ctx)return;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);ctx.globalCompositeOperation='lighter';
+  // Оптимизация: без save/restore и без градиента на каждую машину (градиент шлейфа создаётся один раз, матрица ставится одним вызовом).
+  if(!trailGrad){trailGrad=ctx.createLinearGradient(-10,0,0,0);trailGrad.addColorStop(0,'rgba(255,188,100,0)');trailGrad.addColorStop(1,'rgba(255,205,140,.65)')}
+  vehicles.forEach(function(v){var distance=v.offset+time*v.speed*v.direction,pos=sample(v.route,distance),angle=pos.angle+(v.direction<0?Math.PI:0),lane=v.direction*2.1,x=ox+(pos.x-Math.sin(pos.angle)*lane)*scale,y=oy+(pos.y+Math.cos(pos.angle)*lane)*scale;if(x<-15||x>w+15||y<-15||y>h+15)return;var s=v.size*Math.max(.65,Math.min(1.3,scale))*dpr,ca=Math.cos(angle)*s,sa=Math.sin(angle)*s;ctx.setTransform(ca,sa,-sa,ca,x*dpr,y*dpr);ctx.globalAlpha=.38;ctx.drawImage(v.warm?warm:cool,-8,-5,16,10);ctx.globalAlpha=.85;ctx.fillStyle=v.warm?'#ffedcf':'#e4f5ff';ctx.fillRect(1.5,-1,1.25,.55);ctx.fillRect(1.5,.45,1.25,.55);ctx.globalAlpha=.4;ctx.fillStyle='#eb754d';ctx.fillRect(-3.5,-.8,.7,1.6);ctx.globalAlpha=.19;ctx.fillStyle=trailGrad;ctx.fillRect(-10,-.55,9,1.1)});ctx.setTransform(dpr,0,0,dpr,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
+ }
+ function progress(now){
+  now=typeof now==='number'?now:performance.now();
+  var r=sec.getBoundingClientRect(),raw=motion.matches?0:clamp(-r.top/Math.max(1,sec.offsetHeight-innerHeight));
+  var dt=Math.min(.05,Math.max(0,(now-progressTime)/1000));progressTime=now;
+  if(visualProgress===null||motion.matches)visualProgress=raw;
+  else visualProgress+=(raw-visualProgress)*(1-Math.exp(-dt*3.4));
+  if(Math.abs(raw-visualProgress)<.00001)visualProgress=raw;
+  // На стыке фон уже полностью совпадает со второй сценой, без запаздывающего шва.
+  var p=visualProgress+(raw-visualProgress)*smooth(seg(raw,.88,1));
+  var enter=smooth(seg(p,.16,.54)),leave=smooth(seg(p,.69,.995));
+  clouds.style.opacity=enter*(1-leave);
+  cloudFront.style.transform='translate3d('+((1-enter)*-8+leave*9)+'%, '+((1-enter)*3-leave*4)+'%,0) scale('+(1.04+enter*.035+leave*.045)+')';
+  cloudBack.style.transform='translate3d('+((1-enter)*7-leave*8)+'%, '+((1-enter)*-3+leave*3)+'%,0) scaleX(-1) scale(1.06)';
+  fade.style.opacity=smooth(seg(p,.55,.68));haze.style.opacity=0;
+  content.style.opacity=1-smooth(seg(p,.23,.54));content.style.transform='translate3d(0,'+(-p*18)+'px,0)';
+  hint.style.opacity=1-smooth(seg(p,0,.18));return p;
+ }
+ function frame(now){raf=0;if(!visible||document.hidden)return;var dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;if(!motion.matches)time+=dt;var p=progress(now),k=1-Math.exp(-dt*1.5);mx+=(tx-mx)*k;my+=(ty-my)*k;city.style.transform='translate3d('+(-mx*7)+'px,'+(-my*5)+'px,0) scale('+(1+p*.10)+')';if(p<.69)draw();/* с .69 город полностью закрыт терминалом — не рисуем машины впустую */if(!motion.matches)raf=requestAnimationFrame(frame)}
+ function kick(){if(!raf&&visible&&!document.hidden){last=performance.now();raf=requestAnimationFrame(frame)}}
+ stage.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5},{passive:true});stage.addEventListener('pointerleave',function(){tx=ty=0});
+ addEventListener('scroll',kick,{passive:true});addEventListener('resize',resize);document.addEventListener('visibilitychange',kick);motion.addEventListener('change',function(){visualProgress=null;progress();draw();kick()});
+ if(window.IntersectionObserver)new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;if(visible)kick();else if(raf){cancelAnimationFrame(raf);raf=0}},{rootMargin:'100px'}).observe(sec);
+ resize();progress();
+})();
+</script>
+
+<!-- YANKOM / Сцена 02. Классическая фура, остановка и прозрачный борт. Графика по утверждённому эскизу. -->
+<style>
+.ym2{position:relative;height:340vh;background:#071321;color:#f8fafc;font-family:'Montserrat',Arial,sans-serif;--ym-amber:#ffb341}
+.ym2 *{box-sizing:border-box}
+.ym2__stage{position:sticky;top:0;height:100vh;height:100svh;min-height:560px;overflow:hidden;isolation:isolate;background:#071321}
+.ym2__background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;z-index:-3}
+.ym2__shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(2,9,18,.22),transparent 48%,rgba(3,10,18,.25)),linear-gradient(90deg,rgba(2,9,18,.2),transparent 65%)}
+.ym2__head{position:absolute;top:6.7%;left:5.7%;right:5.7%;z-index:3}
+.ym2__head h2{font:800 clamp(34px,4.3vw,88px)/1.06 'Montserrat',Arial,sans-serif;letter-spacing:-.035em;margin:0;max-width:80%}
+.ym2__head h2 span{display:block}
+.ym2__head p{font-size:clamp(13px,1.38vw,25px);line-height:1.5;margin:18px 0 0;color:#e3e8f0;max-width:80%}
+.ym2__eyebrow{position:absolute;right:0;top:0;font-size:clamp(10px,1vw,18px);letter-spacing:.06em;color:#d5deec;font-weight:600}
+.ym2__eyebrow span{color:#8395ac;padding-right:12px}
+.ym2__vehicle{position:absolute;left:5%;width:90%;bottom:20.5%;aspect-ratio:2048/684;will-change:transform;transform:translate3d(-120vw,0,0)}
+.ym2__vehicle:before{content:'';position:absolute;bottom:3%;left:2%;width:96%;height:8%;border-radius:50%;background:#020711;filter:blur(14px);opacity:.7}
+.ym2__vehicle>img{position:relative;display:block;width:100%;height:auto;user-select:none;pointer-events:none}
+.ym2__vehicle>.ym2__closed-side{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;clip-path:polygon(1.15% 10.4%,78.6% 5.6%,78.6% 69.4%,1.15% 69.4%);will-change:opacity}
+.ym2--linked{margin-top:-100vh;margin-top:-100svh;background:transparent;z-index:2}
+.ym2--linked .ym2__stage{opacity:.001}/* мгновенная подмена: кадры сцен идентичны; .001 вместо 0 — слои уже растеризованы. Плавное появление (transition) давало «призрак» сдвигающейся сцены 1 под ней */
+@media(prefers-reduced-motion:reduce){.ym2--linked{margin-top:0}.ym2--linked .ym2__stage{opacity:1}}
+.ym2__scroll{position:absolute;bottom:2.5%;right:5.7%;font-size:10px;letter-spacing:.16em;color:#a5b6ca;pointer-events:none}
+@media(min-width:2000px){.ym2__vehicle{width:min(90%,2200px);left:50%;margin-left:calc(min(90vw,2200px)/-2)}}
+@media(min-width:768px) and (max-aspect-ratio:4/3){.ym2__vehicle{bottom:29%}.ym2__head h2{font-size:5.5vw;max-width:100%}.ym2__eyebrow{position:static;margin-bottom:22px}.ym2__footer{bottom:17%;gap:25px}.ym2__steps{width:60%}.ym2__cta{padding:16px 20px}}
+@media(max-width:767px){
+.ym2{height:270vh}.ym2__stage{min-height:620px}.ym2__background{object-position:65% 50%}
+.ym2__head{top:5%;left:6%;right:6%}.ym2__eyebrow{position:static;margin-bottom:20px;font-size:9px;letter-spacing:.08em}
+.ym2__head h2{font-size:clamp(30px,7.8vw,55px);line-height:1.08;max-width:100%;letter-spacing:-.04em}.ym2__head p{font-size:13px;line-height:1.6;max-width:100%;margin-top:15px}
+.ym2__vehicle{left:2%;width:96%;bottom:36%}.ym2__body-wall b{font-size:8vw}
+.ym2__footer{left:6%;right:6%;bottom:14%;display:block}.ym2__steps{width:100%;margin-bottom:30px}.ym2__step{font-size:9px;letter-spacing:-.02em;padding-top:23px}.ym2__step:before{width:11px;height:11px;top:2px}.ym2__steps:before,.ym2__steps:after{top:7px}.ym2__cta{display:block;width:100%;font-size:16px;padding:17px 15px;border-radius:10px}.ym2__scroll{bottom:8%;left:6%;right:auto;font-size:8px}.ym2__dialog{padding:23px}
+}
+@media(prefers-reduced-motion:reduce){.ym2{height:100svh;min-height:620px}.ym2__vehicle{transform:none!important}.ym2__vehicle>.ym2__closed-side{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;clip-path:polygon(1.15% 10.4%,78.6% 5.6%,78.6% 69.4%,1.15% 69.4%);will-change:opacity}.ym2__cta{transition:none}}
+
+/* Интерактивные грузы: одна подсвеченная область на исходном изображении. */
+.ym2__vehicle>img:first-child{transition:filter .25s}
+.ym2__vehicle.is-inspecting>img:first-child{filter:brightness(.64) saturate(.8)}
+.ym2__vehicle>.ym2__cargo-focus{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;pointer-events:none;filter:brightness(1.17) saturate(1.12);transition:opacity .2s}
+.ym2__vehicle.is-inspecting>.ym2__cargo-focus{opacity:1}
+.ym2__hotspots{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .3s}
+.ym2__hotspots.is-ready{opacity:1}
+.ym2__hotspot{position:absolute;border:1px solid transparent;background:transparent;border-radius:6px;cursor:pointer;color:#fff;padding:0;pointer-events:none;-webkit-tap-highlight-color:transparent}
+.ym2__hotspots.is-ready .ym2__hotspot{pointer-events:auto}
+.ym2__hotspot:hover,.ym2__hotspot.is-active,.ym2__hotspot:focus-visible{border-color:#ffc469;background:#ffbd3d0c;box-shadow:0 0 18px #ffb44544;outline:none}
+.ym2__hotspot span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:400 22px/1 Arial;color:#fff3d9;border:1px solid #ffd49a99;background:#172232a6;box-shadow:0 2px 12px #0008;transition:background .2s,transform .2s}
+.ym2__hotspot:hover span,.ym2__hotspot.is-active span,.ym2__hotspot:focus-visible span{background:#f4ab39;color:#132034;transform:translate(-50%,-50%) scale(1.15)}
+.ym2__cargo-info{position:absolute;left:5.7%;right:5.7%;bottom:9.5%;display:flex;gap:25px;align-items:center;opacity:0;pointer-events:none;transition:opacity .3s;color:#f5f7fb}
+.ym2__cargo-copy{max-width:850px}.ym2__cargo-kicker{font-size:10px;letter-spacing:.17em;color:#d6a76c}.ym2__cargo-info h3{margin:8px 0;font-size:clamp(19px,1.65vw,32px);font-weight:600}.ym2__cargo-info p{margin:0;max-width:780px;font-size:clamp(12px,1.05vw,18px);line-height:1.5;color:#d4ddea}
+.ym2__cargo-close{border:1px solid #e8bd7a66;background:#122135;color:#f5cf95;border-radius:50%;width:38px;height:38px;font-size:25px;cursor:pointer;pointer-events:auto;flex-shrink:0}
+.ym2__cargo-close[hidden]{display:none}
+.ym2__cargo-close:focus-visible{outline:2px solid #ffd18b;outline-offset:4px}
+@media(max-width:767px){.ym2__hotspot{min-height:30px}.ym2__hotspot span{width:24px;height:24px;font-size:20px}.ym2__cargo-info{left:6%;right:6%;bottom:13%;gap:12px}.ym2__cargo-info h3{font-size:20px}.ym2__cargo-info p{font-size:12px;line-height:1.5}.ym2__cargo-kicker{font-size:8px;letter-spacing:.08em}.ym2__cargo-close{width:32px;height:32px}.ym2__vehicle{bottom:37%}}
+@media(prefers-reduced-motion:reduce){.ym2__hotspots,.ym2__cargo-focus,.ym2__cargo-info,.ym2__vehicle>img:first-child{transition:none}}
+
+
+/* Привязка к полотну дороги: контакт, отражения, свет и вращение дисков. */
+.ym2__vehicle{isolation:isolate}
+.ym2__vehicle:before{bottom:4.2%;left:4%;width:92%;height:5%;filter:blur(9px);opacity:.92;background:radial-gradient(ellipse,#01050be6 0%,#01050b99 38%,transparent 72%);z-index:-1}
+.ym2__ground{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.ym2__ground i{position:absolute;width:8%;height:2.2%;border-radius:50%;background:radial-gradient(ellipse,#000 10%,#000c 38%,transparent 73%);transform:translate(-50%,-15%);filter:blur(1px)}
+.ym2__ground:before{content:'';position:absolute;left:96%;top:91%;width:24%;height:10%;background:radial-gradient(ellipse at 0 50%,#bedbff30,transparent 70%);transform:skewX(-35deg);filter:blur(7px)}
+.ym2__ground:after{content:'';position:absolute;left:-4%;top:89%;width:13%;height:9%;background:radial-gradient(ellipse,#fa5e2820,transparent 70%);filter:blur(7px)}
+.ym2__wheels{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ym2__reflection{position:absolute;left:0;top:94.8%;width:100%;height:27%;opacity:.19;filter:blur(2px) saturate(.7);mask-image:linear-gradient(#000b,transparent);-webkit-mask-image:linear-gradient(#000b,transparent);pointer-events:none;z-index:-1}
+.ym2__vehicle.is-inspecting .ym2__wheels{filter:brightness(.64) saturate(.8)}
+@media(max-width:767px){.ym2__reflection{opacity:.13;filter:blur(1px)}}
+@media(prefers-reduced-motion:reduce){.ym2__vehicle>.ym2__closed-side{opacity:0!important}}
+</style>
+<section class="ym2" id="ymScene" aria-labelledby="ym2Heading">
+ <div class="ym2__stage" id="ymStage">
+  <img class="ym2__background" data-ym2-image="scene2-terminal.jpg" alt="" width="1672" height="941" decoding="async">
+  <div class="ym2__shade" aria-hidden="true"></div>
+  <header class="ym2__head">
+   <div class="ym2__eyebrow"><span>02 /</span> ОРГАНИЗАЦИЯ ПЕРЕВОЗКИ</div>
+   <h2 id="ym2Heading"><span>Ваш груз.</span>Доставка под контролем.</h2>
+   <p>Подберём транспорт и водителя. Организуем и проконтролируем перевозку.</p>
+  </header>
+  <div class="ym2__vehicle" id="ym2Vehicle">
+   <img data-ym2-image="scene2-truck-base-v2.png" alt="Белая фура YANKOM с открытым кузовом: паллеты, ящики, кабельная катушка, бочки и оборудование" width="2048" height="684" decoding="async" draggable="false">
+   <img class="ym2__cargo-focus" id="ym2CargoFocus" data-ym2-image="scene2-truck-base-v2.png" alt="" aria-hidden="true" width="2048" height="684">
+   <div class="ym2__hotspots" id="ym2Hotspots" aria-label="Виды грузов"><button class="ym2__hotspot" type="button" data-cargo="0" style="left:3%;top:31%;width:12%;height:34%" aria-label="Коробки и паллеты" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="1" style="left:15%;top:44%;width:10%;height:21%" aria-label="Упакованные товары" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="2" style="left:26%;top:30%;width:15%;height:35%" aria-label="Грузы в ящиках" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="3" style="left:41%;top:28%;width:11%;height:37%" aria-label="Кабель и катушки" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="4" style="left:52%;top:40%;width:10%;height:25%" aria-label="Грузы в бочках" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="5" style="left:62%;top:25%;width:13%;height:40%" aria-label="Оборудование" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button></div>
+   <div class="ym2__ground" aria-hidden="true"><i style="left:13.72%;top:92.6%"></i><i style="left:22.02%;top:93%"></i><i style="left:30.27%;top:93.5%"></i><i style="left:61.86%;top:94.8%"></i><i style="left:89.26%;top:94.8%"></i></div>
+   <canvas class="ym2__reflection" id="ym2Reflection" aria-hidden="true"></canvas>
+   <canvas class="ym2__wheels" id="ym2Wheels" aria-hidden="true"></canvas>
+   <img class="ym2__closed-side" id="ym2ClosedSide" data-ym2-image="scene2-rigid-classic-v1.png" alt="" aria-hidden="true" width="2172" height="724" draggable="false">
+  </div>
+  <aside class="ym2__cargo-info" id="ym2CargoInfo" aria-live="polite" aria-atomic="true">
+   <div class="ym2__cargo-copy"><span class="ym2__cargo-kicker">РАЗНЫЕ ГРУЗЫ — ОДИН ПОДХОД К ДОСТАВКЕ</span><h3 id="ym2CargoTitle">Что нужно перевезти?</h3><p id="ym2CargoDescription">Наведите на груз в кузове, чтобы узнать подробнее. На телефоне — нажмите.</p></div>
+   <button type="button" class="ym2__cargo-close" id="ym2CargoClose" aria-label="Закрыть описание" hidden>×</button>
+  </aside>
+  <div class="ym2__scroll" id="ym2Scroll">ПРОКРУТИТЕ, ЧТОБЫ УВИДЕТЬ ГРУЗ ВНУТРИ ↓</div>
+ </div>
+</section>
+<script>
+(function(){
+ 'use strict';
+ var sec=document.getElementById('ymScene'),vehicle=document.getElementById('ym2Vehicle'),closedSide=document.getElementById('ym2ClosedSide'),hint=document.getElementById('ym2Scroll');
+ var assets=window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/';
+ sec.querySelectorAll('[data-ym2-image]').forEach(function(img){img.src=assets+img.getAttribute('data-ym2-image');if(img.decode)img.decode().catch(function(){})});
+ var motion=matchMedia('(prefers-reduced-motion:reduce)'),raf=0,last=0,current=0,target=0,visible=true;
+ var first=document.getElementById('ymScene1'),stage=document.getElementById('ymStage'),head=sec.querySelector('.ym2__head');
+ if(first)sec.classList.add('ym2--linked');
+ var wheelCanvas=document.getElementById('ym2Wheels'),wheelCtx=wheelCanvas.getContext('2d'),reflection=document.getElementById('ym2Reflection'),reflectionCtx=reflection.getContext('2d'),truckImage=vehicle.querySelector('img');
+ var wheelData=[{x:283,y:560,r:38,tyre:74},{x:453,y:561,r:39,tyre:74},{x:618,y:562,r:38,tyre:75},{x:1265,y:572,r:40,tyre:75},{x:1820,y:575,r:41,tyre:75}],lastTravel=null;
+ function rollingWheels(travel){
+  if(!wheelCtx||!truckImage.complete||!truckImage.naturalWidth||!vehicleW)return;
+  /* Оптимизация: разрешение ≤1.5, чистим и рисуем только пять колёс (а не весь холст), отражение рисуется один раз и вдвое меньшего размера (оно размыто и бледное). */
+  var dpr=Math.min(devicePixelRatio||1,1.5),cw=Math.round(vehicleW*dpr),ch=Math.round(vehicleW*684/2048*dpr);
+  if(!cw||!ch)return;
+  var resized=wheelCanvas.width!==cw||wheelCanvas.height!==ch;
+  if(!resized&&lastTravel!==null&&Math.abs(travel-lastTravel)<.4)return;
+  lastTravel=travel;if(resized){wheelCanvas.width=cw;wheelCanvas.height=ch}
+  wheelCtx.setTransform(cw/2048,0,0,ch/684,0,0);
+  wheelData.forEach(function(wheel){var total=viewW+vehicleW,turns=Math.max(1,Math.round(total/(2*Math.PI*vehicleW/2048*wheel.tyre))),angle=travel/total*turns*2*Math.PI;/* целое число оборотов за въезд: на остановке диск ровно в исходном положении, без повёрнутых теней */wheelCtx.clearRect(wheel.x-wheel.r-3,wheel.y-wheel.r-3,wheel.r*2+6,wheel.r*2+6);wheelCtx.save();wheelCtx.translate(wheel.x,wheel.y);wheelCtx.rotate(angle);wheelCtx.beginPath();wheelCtx.arc(0,0,wheel.r,0,Math.PI*2);wheelCtx.clip();wheelCtx.drawImage(truckImage,(wheel.x-wheel.r)*truckImage.naturalWidth/2048,(wheel.y-wheel.r)*truckImage.naturalHeight/684,wheel.r*2*truckImage.naturalWidth/2048,wheel.r*2*truckImage.naturalHeight/684,-wheel.r,-wheel.r,wheel.r*2,wheel.r*2);wheelCtx.restore()});
+  if(resized){
+   var rw=Math.round(cw/2),rh=Math.round(ch*.27/2),rs=cw/2048/2;reflection.width=rw;reflection.height=rh;
+   reflectionCtx.setTransform(rs,0,0,rs,0,0);reflectionCtx.clearRect(0,0,2048,684*.27);reflectionCtx.save();reflectionCtx.translate(0,648);reflectionCtx.scale(1,-1);reflectionCtx.drawImage(truckImage,0,0,2048,684);reflectionCtx.drawImage(wheelCanvas,0,0,2048,684);reflectionCtx.restore();
+  }
+ }
+ truckImage.addEventListener('load',function(){lastTravel=null;kick()});
+ function clamp(v){return Math.max(0,Math.min(1,v))}function seg(v,a,b){return clamp((v-a)/(b-a))}function smooth(v){return v*v*(3-2*v)}
+ var viewW=innerWidth,vehicleW=0,pxRatio=Math.max(1,devicePixelRatio||1);function sizes(){viewW=innerWidth;vehicleW=vehicle.offsetWidth;pxRatio=Math.max(1,devicePixelRatio||1)}
+ function measure(){if(!vehicleW)sizes();var r=sec.getBoundingClientRect();stage.style.opacity=first&&!motion.matches&&r.top>1?'.001':'1';target=motion.matches?1:clamp(-r.top/Math.max(1,sec.offsetHeight-innerHeight));kick()}
+ function paint(p){
+  head.style.opacity=smooth(seg(p,0,.12));
+  var driveT=seg(p,0,.38),drive=driveT*driveT*driveT*(driveT*(driveT*6-15)+10);
+  /* Вибрация убрана: частое дробное смещение (±0.5px) давало мерцание текстуры и «подёргивание». Лёгкая подвеска — медленная, и сдвиг выровнен по физическим пикселям. */
+  var travel=drive*(viewW+vehicleW),bounce=0,tx=-(1-drive)*(viewW+vehicleW);
+  tx=Math.round(tx*pxRatio)/pxRatio;bounce=Math.round(bounce*pxRatio)/pxRatio;
+  vehicle.style.transform='translate3d('+tx+'px,'+bounce+'px,0)';
+  rollingWheels(travel);   // размеры кэшируются в sizes(): без чтения layout на каждом кадре
+  closedSide.style.opacity=1-smooth(seg(p,.48,.80));
+  updateHotspots(p);
+  hint.style.opacity=1-seg(p,.38,.57);
+ }
+ function tick(now){raf=0;var dt=Math.min(.05,Math.max(.001,(now-last)/1000));last=now;current=motion.matches?1:current+(target-current)*(1-Math.exp(-dt*4.2));if(Math.abs(current-target)<.0001)current=target;paint(current);if(current!==target&&visible)raf=requestAnimationFrame(tick)}
+ function kick(){if(!raf&&visible){last=performance.now();raf=requestAnimationFrame(tick)}}
+ addEventListener('scroll',measure,{passive:true});addEventListener('resize',function(){sizes();measure()});motion.addEventListener('change',measure);
+ if(window.IntersectionObserver){new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;if(visible)measure()},{rootMargin:'200px'}).observe(sec)}
+
+ var cargoData=[{"title":"Коробки и паллеты","description":"Товары в коробках и на паллетах. Подбор транспорта под объём, вес и требования к погрузке.","x":3,"y":31,"w":12,"h":34},{"title":"Упакованные товары","description":"Грузы в защитной плёнке и транспортной упаковке. Размещение и крепление с учётом особенностей товара.","x":15,"y":44,"w":10,"h":21},{"title":"Грузы в ящиках","description":"Изделия и комплектующие в деревянной таре. Учитываем габариты, массу и способ загрузки.","x":26,"y":30,"w":15,"h":35},{"title":"Кабель и катушки","description":"Кабельная продукция на барабанах. Подбираем транспорт с учётом диаметра, веса и крепления катушки.","x":41,"y":28,"w":11,"h":37},{"title":"Грузы в бочках","description":"Продукция в бочках и другой промышленной таре. Условия перевозки определяются содержимым и упаковкой.","x":52,"y":40,"w":10,"h":25},{"title":"Оборудование","description":"Станки, агрегаты и оборудование в упаковке. Учитываем размеры, вес, способ погрузки и требования к фиксации.","x":62,"y":25,"w":13,"h":40}];
+ var spots=document.getElementById('ym2Hotspots'),buttons=Array.from(spots.querySelectorAll('button')),focusImage=document.getElementById('ym2CargoFocus'),info=document.getElementById('ym2CargoInfo'),infoTitle=document.getElementById('ym2CargoTitle'),infoDescription=document.getElementById('ym2CargoDescription'),closeInfo=document.getElementById('ym2CargoClose'),selected=-1,pinned=false,ready=false;
+ function showCargo(index){if(!ready)return;selected=index;var data=cargoData[index];vehicle.classList.add('is-inspecting');focusImage.style.clipPath='inset('+data.y+'% '+(100-data.x-data.w)+'% '+(100-data.y-data.h)+'% '+data.x+'%)';infoTitle.textContent=data.title;infoDescription.textContent=data.description;closeInfo.hidden=false;buttons.forEach(function(b,i){b.classList.toggle('is-active',i===index);b.setAttribute('aria-expanded',i===index?'true':'false')})}
+ function clearCargo(){selected=-1;pinned=false;vehicle.classList.remove('is-inspecting');closeInfo.hidden=true;infoTitle.textContent='Что нужно перевезти?';infoDescription.textContent='Наведите на груз в кузове, чтобы узнать подробнее. На телефоне — нажмите.';buttons.forEach(function(b){b.classList.remove('is-active');b.setAttribute('aria-expanded','false')})}
+ function updateHotspots(p){var next=motion.matches||p>=.80;if(ready!==next){if(ready&&!next)clearCargo();ready=next;spots.classList.toggle('is-ready',ready);buttons.forEach(function(b){b.disabled=!ready})}info.style.opacity=smooth(seg(p,.76,.86))}   // DOM трогаем только при смене состояния, не на каждом кадре
+ buttons.forEach(function(button,index){button.addEventListener('pointerenter',function(e){if(e.pointerType!=='touch'&&!pinned)showCargo(index)});button.addEventListener('focus',function(){if(!pinned)showCargo(index)});button.addEventListener('click',function(){if(pinned&&selected===index){clearCargo();return}pinned=true;showCargo(index)});button.addEventListener('keydown',function(e){if(e.key==='Escape'){clearCargo();button.blur()}})});
+ spots.addEventListener('pointerleave',function(){if(!pinned&&!spots.contains(document.activeElement))clearCargo()});spots.addEventListener('focusout',function(e){if(!pinned&&!spots.contains(e.relatedTarget))clearCargo()});closeInfo.addEventListener('click',clearCargo);
+ document.addEventListener('pointerdown',function(e){if(selected>=0&&!spots.contains(e.target)&&!info.contains(e.target))clearCargo()});
+
+ // Статический законченный кадр при reduced-motion; анимация обратима при прокрутке назад.
+ measure();
+
+})();
+</script>
+
+<!-- Янком, блок 3: навбар сверху в стиле сайта (тёмный navy #071321, Montserrat, янтарный акцент): плашка с логотипом, пунктами и кнопкой; под пунктом раскрывается панель, плавно меняющая размер -->
+<style>
+  .ymn{--ymn-bg:rgba(7,19,33,.74);--ymn-line:rgba(131,149,172,.3);--ymn-amber:#ffb341;--ymn-amber2:#ffc469;--ymn-text:#e3e8f0;--ymn-muted:#8395ac;
+    position:fixed;left:0;right:0;top:max(14px,env(safe-area-inset-top));z-index:9990;display:flex;justify-content:center;pointer-events:none;font-family:'Montserrat','Arial',sans-serif;opacity:0;transform:translateY(-18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.9,.3,1)}
+  .ymn.on{opacity:1;transform:none}
+  .ymn *{box-sizing:border-box}
+  .ymn__bar{pointer-events:auto;display:flex;align-items:center;gap:4px;height:58px;padding:0 8px 0 24px;border-radius:999px;background:var(--ymn-bg);border:1px solid var(--ymn-line);box-shadow:0 14px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.07);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+  .ymn__brand{display:flex;align-items:center;margin-right:clamp(10px,1.6vw,26px);color:#fff;text-decoration:none;font:800 17px/1 'Montserrat','Arial',sans-serif;letter-spacing:.2em;padding-left:.2em}
+  .ymn__brand i{font-style:normal;color:var(--ymn-amber)}
+  .ymn__sep{width:1px;height:22px;background:var(--ymn-line);margin:0 clamp(6px,1vw,14px) 0 0}
+  .ymn__item{display:flex;align-items:center;gap:7px;height:42px;padding:0 clamp(12px,1.4vw,20px);border:1px solid transparent;border-radius:999px;background:transparent;color:var(--ymn-text);font:600 clamp(13px,.95vw,15px)/1 'Montserrat','Arial',sans-serif;letter-spacing:.03em;cursor:pointer;transition:background .25s,color .25s,border-color .25s;-webkit-tap-highlight-color:transparent}
+  .ymn__item svg{width:12px;height:12px;fill:none;stroke:var(--ymn-muted);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s,stroke .25s}
+  .ymn__item:hover,.ymn__item:focus-visible,.ymn__item.is-active{outline:none;color:var(--ymn-amber2);background:rgba(255,179,65,.1);border-color:rgba(255,196,105,.38)}
+  .ymn__item.is-active svg,.ymn__item:hover svg{stroke:var(--ymn-amber2)}
+  .ymn__item.is-active svg{transform:rotate(180deg)}
+  .ymn__cta{display:flex;align-items:center;height:42px;margin-left:clamp(6px,1vw,14px);padding:0 clamp(16px,1.6vw,24px);border-radius:999px;background:var(--ymn-amber);color:#132034;text-decoration:none;font:700 clamp(13px,.95vw,15px)/1 'Montserrat','Arial',sans-serif;letter-spacing:.03em;box-shadow:0 6px 20px rgba(255,179,65,.28);transition:background .2s,transform .2s,box-shadow .2s}
+  .ymn__cta:hover,.ymn__cta:focus-visible{outline:none;background:#ffc469;transform:translateY(-1px);box-shadow:0 10px 26px rgba(255,179,65,.4)}
+  .ymn__burger{display:none}
+  .ymn__panel{pointer-events:none;position:absolute;left:0;top:calc(58px + 12px);border-radius:20px;background:rgba(9,22,38,.94);border:1px solid var(--ymn-line);box-shadow:0 26px 64px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);overflow:hidden;opacity:0;transform:translateY(-8px) scale(.97);transform-origin:50% 0;transition:opacity .22s ease,transform .3s cubic-bezier(.2,.9,.3,1),left .38s cubic-bezier(.2,.9,.3,1),width .38s cubic-bezier(.2,.9,.3,1),height .38s cubic-bezier(.2,.9,.3,1)}
+  .ymn__panel.open{opacity:1;transform:none;pointer-events:auto}
+  .ymn__inner{position:relative;width:100%;height:100%}
+  .ymn__pane{position:absolute;left:0;top:0;width:max-content;padding:14px;opacity:0;visibility:hidden;transition:opacity .22s,transform .3s cubic-bezier(.2,.9,.3,1),visibility 0s .3s}
+  .ymn__pane.is-active{opacity:1;visibility:visible;transition-delay:0s}
+  .ymn__pane.from-left{transform:translateX(-24px)}.ymn__pane.from-right{transform:translateX(24px)}
+  .ymn__pane.is-active.from-left,.ymn__pane.is-active.from-right{transform:none}
+  .ymn__links{display:flex;flex-direction:column;gap:2px;min-width:250px}
+  .ymn__link{display:flex;align-items:center;gap:14px;padding:11px 14px;border-radius:14px;color:#f1f5fb;text-decoration:none;font-size:15px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s}
+  .ymn__link:hover,.ymn__link:focus-visible{outline:none;background:rgba(255,179,65,.1);color:var(--ymn-amber2)}
+  .ymn__num{flex:none;width:26px;font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ymn-muted)}
+  .ymn__link:hover .ymn__num{color:var(--ymn-amber)}
+  .ymn__ico{flex:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,196,105,.32);color:var(--ymn-amber)}
+  .ymn__ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ymn__card{display:flex;flex-direction:column;gap:12px;width:300px;padding:6px;border-radius:14px;color:#f1f5fb;text-decoration:none;transition:background .2s}
+  .ymn__card:hover{background:rgba(255,179,65,.07)}
+  .ymn__card img{width:100%;height:auto;display:block;border-radius:12px;background:#0b1a2d}
+  .ymn__card b{display:block;font-size:15px;letter-spacing:.02em}
+  .ymn__card span{display:block;margin-top:4px;font-size:12.5px;line-height:1.45;color:#9fb0c6}
+  @media (max-width:767px){
+    .ymn{padding:0 12px}
+    .ymn__bar{width:100%;height:54px;padding:0 6px 0 20px;justify-content:space-between}
+    .ymn__item,.ymn__sep,.ymn__cta{display:none}
+    .ymn__burger{display:flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,196,105,.38);background:rgba(255,179,65,.1);color:var(--ymn-amber2);font:700 13px/1 'Montserrat','Arial',sans-serif;letter-spacing:.04em;cursor:pointer}
+    .ymn__burger svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+    .ymn__panel{left:12px!important;right:12px;top:calc(54px + 10px);width:auto!important;height:auto!important;max-height:calc(100svh - 96px);overflow:auto}
+    .ymn__inner{height:auto}
+    .ymn__pane{position:static;visibility:visible;opacity:1;transform:none!important;width:auto;padding:6px 10px;transition:none}
+    .ymn__pane+.ymn__pane{border-top:1px solid var(--ymn-line)}
+    .ymn__links{min-width:0}
+    .ymn__card{width:100%}
+    .ymn__mcta{display:flex;align-items:center;justify-content:center;margin:10px;height:46px;border-radius:999px;background:var(--ymn-amber);color:#132034;text-decoration:none;font:700 15px/1 'Montserrat','Arial',sans-serif}
+  }
+  @media (min-width:768px){.ymn__mcta{display:none}}
+</style>
+
+<div class="ymn" id="ymNav" role="navigation" aria-label="Основное меню">
+  <div class="ymn__panel" id="ymnPanel" aria-live="polite"><div class="ymn__inner" id="ymnInner">
+    <div class="ymn__pane" data-i="0"><div class="ymn__links">
+      <a class="ymn__link" href="#perevozki"><span class="ymn__num">01</span><span class="ymn__ico"><svg viewBox="0 0 24 24"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17H3V6a1 1 0 0 1 1-1h9v12M9 17h6m4 0h2v-6l-3-4h-4v10M14 7h3l3 4"/></svg></span>Перевозки</a>
+      <a class="ymn__link" href="#sklad"><span class="ymn__num">02</span><span class="ymn__ico"><svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13M3 21h18M7 21v-8h10v8M7 17h10"/></svg></span>Склад</a>
+      <a class="ymn__link" href="#tarify"><span class="ymn__num">03</span><span class="ymn__ico"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3zM9 8h6M9 12h6"/></svg></span>Тарифы</a>
+    </div></div>
+    <div class="ymn__pane" data-i="1">
+      <a class="ymn__card" href="#park"><img id="ymnImg" alt="Тягач с тентованным полуприцепом YANKOM" draggable="false"><div><b>Автопарк</b><span>Тягач и тентованный полуприцеп</span></div></a>
+    </div>
+    <div class="ymn__pane" data-i="2"><div class="ymn__links">
+      <a class="ymn__link" href="#o-nas"><span class="ymn__num">04</span><span class="ymn__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></span>О нас</a>
+      <a class="ymn__link" href="#kontakty"><span class="ymn__num">05</span><span class="ymn__ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>Контакты</a>
+    </div></div>
+    <a class="ymn__mcta" href="#kontakty">Связаться</a>
+  </div></div>
+  <nav class="ymn__bar" id="ymnBar">
+    <a class="ymn__brand" href="#" aria-label="YANKOM — наверх">YANK<i>O</i>M</a>
+    <span class="ymn__sep" aria-hidden="true"></span>
+    <button class="ymn__item" type="button" data-i="0" aria-expanded="false">Услуги <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <button class="ymn__item" type="button" data-i="1" aria-expanded="false">Автопарк <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <button class="ymn__item" type="button" data-i="2" aria-expanded="false">Компания <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <a class="ymn__cta" href="#kontakty">Связаться</a>
+    <button class="ymn__burger" id="ymnBurger" type="button" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Меню</button>
+  </nav>
+</div>
+
+<script>
+(function(){
+  var nav=document.getElementById('ymNav'),bar=document.getElementById('ymnBar'),panel=document.getElementById('ymnPanel'),
+      btns=[].slice.call(bar.querySelectorAll('.ymn__item')),panes=[].slice.call(panel.querySelectorAll('.ymn__pane')),burger=document.getElementById('ymnBurger');
+  document.getElementById('ymnImg').src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'yankom-nav-truck.webp';
+  var active=-1,closeT=0,isMobile=function(){return window.innerWidth<768};
+  function place(i){
+    var pane=panes[i],w=pane.offsetWidth,h=pane.offsetHeight,vw=document.documentElement.clientWidth,
+        r=btns[i].getBoundingClientRect(),left=Math.max(12,Math.min(vw-w-12,r.left+r.width/2-w/2));
+    panel.style.width=w+'px';panel.style.height=h+'px';panel.style.left=left+'px';
+  }
+  function open(i){
+    if(isMobile())return;
+    clearTimeout(closeT);
+    if(i===active)return;
+    var dir=active<0?0:(i>active?1:-1);
+    panes.forEach(function(p,k){
+      p.classList.remove('from-left','from-right');
+      if(k===i){if(dir)p.classList.add(dir>0?'from-right':'from-left');void p.offsetWidth;p.classList.add('is-active');p.classList.remove('from-left','from-right')}
+      else p.classList.remove('is-active');
+    });
+    btns.forEach(function(b,k){b.classList.toggle('is-active',k===i);b.setAttribute('aria-expanded',k===i?'true':'false')});
+    if(active<0){panel.style.transition='none';place(i);void panel.offsetWidth;panel.style.transition=''}   // первая раскладка без «пролёта» из угла
+    else place(i);
+    panel.classList.add('open');active=i;
+  }
+  function close(){
+    clearTimeout(closeT);
+    closeT=setTimeout(function(){
+      panel.classList.remove('open');active=-1;
+      btns.forEach(function(b){b.classList.remove('is-active');b.setAttribute('aria-expanded','false')});
+      panes.forEach(function(p){p.classList.remove('is-active')});
+      burger.setAttribute('aria-expanded','false');
+    },isMobile()?0:180);
+  }
+  btns.forEach(function(b,i){
+    b.addEventListener('mouseenter',function(){open(i)});
+    b.addEventListener('focus',function(){open(i)});
+    b.addEventListener('click',function(){active===i&&panel.classList.contains('open')&&window.matchMedia('(hover:none)').matches?close():open(i)});   // на тач-экранах повторный тап закрывает
+  });
+  burger.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(panel.classList.contains('open')){close();return}
+    panel.style.width='';panel.style.height='';panel.style.left='';   // на телефоне панель растянута на всю ширину и показывает все разделы сразу
+    panel.classList.add('open');burger.setAttribute('aria-expanded','true');active=99;
+  });
+  bar.addEventListener('mouseleave',function(){if(!isMobile())close()});
+  panel.addEventListener('mouseenter',function(){clearTimeout(closeT)});
+  panel.addEventListener('mouseleave',function(){if(!isMobile())close()});
+  document.addEventListener('click',function(e){if(!nav.contains(e.target))close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+  window.addEventListener('resize',function(){if(active>=0&&active<99&&!isMobile())place(active);else if(isMobile()){panel.classList.remove('open');active=-1}});
+  [].forEach.call(nav.querySelectorAll('a'),function(a){a.addEventListener('click',function(e){
+    var id=a.getAttribute('href'),el=id&&id.length>1&&document.querySelector(id);
+    if(id==='#'){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})}   // логотип — наверх
+    else if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'})}   // если такого якоря на странице нет — ничего не ломаем
+    else if(id&&id.length>1){e.preventDefault()}
+    close();
+  })});
+  setTimeout(function(){nav.classList.add('on')},600);
+})();
+</script>
+
+<!-- YANKOM / Сцена 03. Реальный офис, демонстрационные досье сотрудников. -->
+<style>
+.ym3{position:relative;background:#071321;color:#f1f5fa;font-family:'Montserrat',Arial,sans-serif;padding:130px max(5.7%,calc((100% - 1600px)/2)) 85px;min-height:100svh}.ym3 *{box-sizing:border-box}
+.ym3__head{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:40px}.ym3__eyebrow{margin:0 0 18px;color:#bca17e;font-size:10px;letter-spacing:.18em}.ym3__head h2{font-size:clamp(34px,3.4vw,66px);line-height:1.1;letter-spacing:-.035em;font-weight:600;margin:0}.ym3__intro{max-width:340px;margin:0 0 4px;font-size:clamp(13px,1vw,18px);line-height:1.65;color:#aab9cb}
+.ym3__workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.41fr);border-block:1px solid #7c8eab33}.ym3__photo{position:relative;min-width:0;height:clamp(440px,57vh,720px);overflow:hidden;background:#152131}.ym3__office{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 75%}.ym3__caption{position:absolute;left:22px;bottom:17px;color:#fff;font-size:9px;letter-spacing:.15em;padding:10px 13px;border-radius:4px;background:#071321a6;backdrop-filter:blur(8px);pointer-events:none}
+.ym3__hotspot{position:absolute;border:1px solid transparent;border-radius:12px;background:transparent;padding:0;cursor:pointer;color:#fff;min-width:30px;min-height:36px;opacity:0;transition:border-color .25s,background .25s;-webkit-tap-highlight-color:transparent}.ym3__hotspot.is-positioned{opacity:1}.ym3__hotspot:hover,.ym3__hotspot.is-active,.ym3__hotspot:focus-visible{border-color:#f5ca86b3;background:linear-gradient(transparent 65%,#f4b45916);outline:none;box-shadow:0 0 0 3px #f1be700c}.ym3__hotspot span{position:absolute;right:-10px;bottom:-10px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-size:10px;font-weight:600;color:#fff;background:#132336e8;border:1px solid #f5ca8699;box-shadow:0 2px 12px #0005}.ym3__hotspot.is-active span{background:#e8b873;color:#132135}
+.ym3__profile{padding:32px clamp(22px,2.8vw,50px) 24px;border-left:1px solid #7c8eab33;background:linear-gradient(145deg,#14213244,transparent);display:flex;flex-direction:column;min-width:0}.ym3__profile-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:28px;color:#8b9daf;font-size:9px;letter-spacing:.16em}.ym3__profile-top span:last-child{color:#d7b98d}.ym3__profile h3{margin:0 0 10px;font-size:clamp(26px,2.2vw,43px);line-height:1.1;font-weight:600;letter-spacing:-.025em}.ym3__position{margin:0;font-size:14px;line-height:1.5;color:#d9bb92}.ym3__divider{width:40px;height:1px;background:#d9bb9277;margin:24px 0}.ym3__profile h4{font-size:10px;letter-spacing:.11em;font-weight:500;color:#8799ae;margin:0 0 16px}.ym3__tasks{padding:0;margin:0;list-style:none;display:grid;gap:12px;color:#d8e1ed;font-size:clamp(12px,.95vw,16px);line-height:1.6}.ym3__tasks li{position:relative;padding-left:15px}.ym3__tasks li:before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;background:#a88659;border-radius:50%}.ym3__principle{font-size:12px;line-height:1.7;color:#91a3b7;border-top:1px solid #7c8eab26;padding-top:17px;margin:24px 0 20px}.ym3__demo{font-size:9px;line-height:1.6;letter-spacing:.03em;color:#8394a7;margin:auto 0 0;padding-top:18px}
+.ym3__people{display:flex;align-items:center;gap:28px;margin-top:24px;flex-wrap:wrap}.ym3__choose{color:#7f92a9;font-size:9px;letter-spacing:.08em;margin-right:auto}.ym3__person{display:flex;gap:10px;align-items:center;color:#98a8bb;background:none;border:0;border-bottom:1px solid transparent;padding:13px 0;cursor:pointer;font:500 13px/1.2 'Montserrat',Arial,sans-serif;min-height:44px}.ym3__person span{color:#7d8c9e;font-size:10px}.ym3__person.is-active{color:#f2d4ab;border-color:#cda36b}.ym3__person:focus-visible{outline:2px solid #ecc58b;outline-offset:5px}.ym3__person:hover{color:#fff}
+@media(min-width:2000px){.ym3__profile{padding-top:50px}.ym3__tasks{gap:19px}.ym3__position{font-size:18px}.ym3__principle{font-size:15px}}
+@media(max-width:1000px) and (min-width:768px){.ym3__intro{max-width:250px}.ym3__workspace{grid-template-columns:minmax(0,1fr) 280px}.ym3__profile{padding:26px 22px}}
+@media(max-width:767px){.ym3{padding:105px 22px 45px}.ym3__head{display:block;margin-bottom:27px}.ym3__eyebrow{font-size:8px;letter-spacing:.12em;margin-bottom:16px}.ym3__head h2{font-size:32px}.ym3__intro{max-width:none;font-size:13px;margin:18px 0 0;line-height:1.6}.ym3__workspace{display:block}.ym3__photo{height:350px}.ym3__profile{padding:25px 4px 20px;border:0;min-height:350px;background:none}.ym3__profile h3{font-size:31px}.ym3__tasks{font-size:13px;gap:10px}.ym3__demo{padding-top:6px}.ym3__people{gap:22px;margin-top:17px}.ym3__choose{flex-basis:100%;font-size:8px}.ym3__person{font-size:12px}.ym3__caption{left:12px;bottom:12px;font-size:8px}}
+@media(prefers-reduced-motion:reduce){.ym3__hotspot{transition:none}}
+</style>
+<section class="ym3" id="ymScene3" aria-labelledby="ym3Heading">
+ <header class="ym3__head"><div><p class="ym3__eyebrow">03 / КОМАНДА YANKOM</p><h2 id="ym3Heading">За каждой доставкой —<br>наша команда.</h2></div><p class="ym3__intro">Знакомьтесь с людьми, которые связывают клиента, водителя и получателя. Выберите сотрудника, чтобы узнать о его работе.</p></header>
+ <div class="ym3__workspace">
+  <div class="ym3__photo" id="ym3OfficeFrame"><img class="ym3__office" id="ym3Office" width="960" height="1280" alt="Настоящий офис компании: трое сотрудников за рабочими столами" loading="lazy" decoding="async">
+   <button class="ym3__hotspot is-active" type="button" data-person="0" aria-label="Анна — демонстрационное досье" aria-controls="ym3Profile" aria-expanded="true"><span>01</span></button>
+   <button class="ym3__hotspot" type="button" data-person="1" aria-label="Дмитрий — демонстрационное досье" aria-controls="ym3Profile" aria-expanded="false"><span>02</span></button>
+   <button class="ym3__hotspot" type="button" data-person="2" aria-label="Елена — демонстрационное досье" aria-controls="ym3Profile" aria-expanded="false"><span>03</span></button>
+   <div class="ym3__caption">ОФИС YANKOM</div>
+  </div>
+  <aside class="ym3__profile" id="ym3Profile" aria-labelledby="ym3PersonName" aria-live="polite" aria-atomic="true"><div class="ym3__profile-top"><span>ЛИЧНОЕ ДЕЛО</span><span id="ym3PersonNumber">01 / 03</span></div><h3 id="ym3PersonName">Анна</h3><p class="ym3__position" id="ym3PersonPosition">Логист</p><div class="ym3__divider"></div><h4>ЧТО БЕРЁТ НА СЕБЯ</h4><ul class="ym3__tasks" id="ym3PersonTasks"><li>Уточняет задачу и требования к грузу.</li><li>Подбирает машину и водителя.</li><li>Согласовывает условия перевозки.</li></ul><p class="ym3__principle" id="ym3PersonPrinciple">«Хорошая перевозка начинается с правильно заданных вопросов».</p><p class="ym3__demo">Имена, должности и описания — демонстрационные.</p></aside>
+ </div>
+ <div class="ym3__people" aria-label="Выбрать сотрудника"><span class="ym3__choose">НАВЕДИТЕ НА СОТРУДНИКА ИЛИ ВЫБЕРИТЕ ИМЯ</span><button class="ym3__person is-active" data-select="0" aria-pressed="true" type="button"><span>01</span>Анна</button><button class="ym3__person" data-select="1" aria-pressed="false" type="button"><span>02</span>Дмитрий</button><button class="ym3__person" data-select="2" aria-pressed="false" type="button"><span>03</span>Елена</button></div>
+</section>
+<script>
+(function(){
+ 'use strict';
+ var sec=document.getElementById('ymScene3'),frame=document.getElementById('ym3OfficeFrame'),image=document.getElementById('ym3Office'),spots=Array.from(sec.querySelectorAll('[data-person]')),selectors=Array.from(sec.querySelectorAll('[data-select]')),name=document.getElementById('ym3PersonName'),position=document.getElementById('ym3PersonPosition'),tasks=document.getElementById('ym3PersonTasks'),principle=document.getElementById('ym3PersonPrinciple'),number=document.getElementById('ym3PersonNumber'),active=-1;
+ // Временные данные по прямому поручению пользователя.
+ var people=[{name:'Анна',position:'Логист',box:[164,648,130,170],tasks:['Разбирается в вашей задаче и требованиях к грузу.','Подбирает подходящую машину и водителя.','Согласовывает маршрут и условия перевозки.'],principle:'Хорошая перевозка начинается с правильно заданных вопросов.'},{name:'Дмитрий',position:'Координатор перевозок',box:[708,652,122,207],tasks:['Согласовывает время и место погрузки.','Поддерживает связь с водителем в пути.','Передаёт информацию о ходе доставки.'],principle:'Все участники должны понимать, что происходит с грузом.'},{name:'Елена',position:'Руководитель отдела логистики',box:[657,637,73,88],tasks:['Координирует работу команды.','Подключается к сложным задачам перевозки.','Контролирует согласование доставки с получателем.'],principle:'За каждым маршрутом стоит общая работа команды.'}];
+ function select(index){if(active===index)return;active=index;var person=people[index];name.textContent=person.name;position.textContent=person.position;number.textContent='0'+(index+1)+' / 03';principle.textContent='«'+person.principle+'»';tasks.replaceChildren();person.tasks.forEach(function(text){var li=document.createElement('li');li.textContent=text;tasks.appendChild(li)});spots.forEach(function(b,i){b.classList.toggle('is-active',i===index);b.setAttribute('aria-expanded',i===index?'true':'false')});selectors.forEach(function(b,i){b.classList.toggle('is-active',i===index);b.setAttribute('aria-pressed',i===index?'true':'false')})}
+ function align(){var w=frame.clientWidth,h=frame.clientHeight,iw=image.naturalWidth||960,ih=image.naturalHeight||1280,scale=Math.max(w/iw,h/ih),x=(w-iw*scale)*.5,y=(h-ih*scale)*.75;people.forEach(function(person,i){var b=person.box,sx=iw/960,sy=ih/1280;spots[i].style.left=(x+b[0]*sx*scale)+'px';spots[i].style.top=(y+b[1]*sy*scale)+'px';spots[i].style.width=(b[2]*sx*scale)+'px';spots[i].style.height=(b[3]*sy*scale)+'px';spots[i].classList.add('is-positioned')})}
+ function keys(event,i,group){var next=event.key==='ArrowRight'?(i+1)%3:event.key==='ArrowLeft'?(i+2)%3:event.key==='Home'?0:event.key==='End'?2:-1;if(next<0)return;event.preventDefault();select(next);group[next].focus()}
+ spots.forEach(function(b,i){b.addEventListener('pointerenter',function(e){if(e.pointerType!=='touch')select(i)});b.addEventListener('focus',function(){select(i)});b.addEventListener('click',function(){select(i)});b.addEventListener('keydown',function(e){keys(e,i,spots)})});selectors.forEach(function(b,i){b.addEventListener('click',function(){select(i)});b.addEventListener('keydown',function(e){keys(e,i,selectors)})});image.addEventListener('load',align);image.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'yankom-office-team-v1.jpg';if(window.ResizeObserver)new ResizeObserver(align).observe(frame);else addEventListener('resize',align);select(0);align();
+})();
+</script>
+</body></html>
