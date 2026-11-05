@@ -597,8 +597,8 @@
 @media(prefers-reduced-motion:reduce){.ym4__image,.ym4__bay:before,.ym4__number,.ym4__bay-label{transition:none}}
 /* Фуры без обводки и выделения: на десктопе рамки боксов убраны. Фары выключены; эффекты света отключены по решению пользователя. */
 .ym4__bay:before,.ym4__bay[aria-pressed=true]:before,.ym4__bay:hover:before{display:none}
-.ym4__lit{opacity:0;pointer-events:none;transition:opacity .35s ease,transform .55s cubic-bezier(.22,.7,.24,1);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-@media(prefers-reduced-motion:reduce){.ym4__lit{transition:none}}
+.ym4__lit{pointer-events:none;aspect-ratio:1672/941;height:auto}
+@media(prefers-reduced-motion:reduce){.ym4__lit img{transition:none!important}}
 /* Меньше пустой стены над боксами: верх панорамы обрезан на 9 %, заголовок поднят, боксы сдвинуты соответственно. */
 @media(min-width:1101px){
 .ym4__canvas{aspect-ratio:1672/856}
@@ -652,18 +652,18 @@
   {name:'Низкорамные и специальные',types:['Низкорамный','Трал','Низкорамная платформа','Телескопический','Балковоз (негабарит)']}
  ];
  image.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'scene4-hangar-lights-off-v3.png';
- /* Фары: пока на фуру не наведены, они выключены (основная картинка). При наведении (на телефоне при выборе категории) поверх проявляется исходный кадр с горящими фарами, но только в области фар этой фуры: слой лежит в том же положении, что и основной, а маска задана в процентах его размера. Координаты ламп в пикселях кадра 1672×941. */
- var litImage=document.createElement('img');litImage.className='ym4__image ym4__lit';litImage.alt='';litImage.setAttribute('aria-hidden','true');litImage.decoding='async';litImage.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'scene4-hangar-clean-v1.png';
- var lampPairs=[[[95,637],[198,636]],[[499,641],[598,641]],[[882,641],[971,641]],[[1282,643],[1377,643]]];
- litImage.style.setProperty('-webkit-mask-image','none');
- var masks=lampPairs.map(function(pair){return pair.map(function(p){return 'radial-gradient(ellipse 2% 3% at '+(p[0]/1672*100).toFixed(2)+'% '+(p[1]/941*100).toFixed(2)+'%,#000 45%,transparent 100%)'}).join(',')});
- section.style.setProperty('--ym4-lit-mask',masks[0]);
+ /* Фары: пока на фуру не наведены, они выключены (основная картинка). При наведении (на телефоне при выборе категории) загорается свет именно у этой фуры. Для каждой фуры есть прозрачный слой scene4-lamps-N.png: в нём только реально горящие места исходного кадра (лампы фар и противотуманные, с мягким краем), остальное прозрачно, поэтому картинка больше нигде не меняется. Слои лежат на основном кадре 1672×941; x, y, ширина и высота слоя заданы в его пикселях. */
+ var litImage=document.createElement('div');litImage.className='ym4__image ym4__lit';litImage.setAttribute('aria-hidden','true');
+ var lampBase=window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/',lampBoxes=[[26,545,289,181],[425,545,250,180],[805,544,241,181],[1215,545,231,180]],lampLayers=lampBoxes.map(function(b,i){
+  var im=document.createElement('img');im.alt='';im.decoding='async';im.src=lampBase+'scene4-lamps-'+(i+1)+'.png';
+  im.style.cssText='position:absolute;left:'+(b[0]/1672*100).toFixed(3)+'%;top:'+(b[1]/941*100).toFixed(3)+'%;width:'+(b[2]/1672*100).toFixed(3)+'%;height:'+(b[3]/941*100).toFixed(3)+'%;opacity:0;transition:opacity .35s ease;pointer-events:none';
+  litImage.appendChild(im);return im;
+ });
  panorama.appendChild(litImage);
  var litIndex=-1,touchOnly=matchMedia('(hover:none)');
  function setLit(i){
   if(i===litIndex)return;litIndex=i;
-  if(i<0){litImage.style.opacity='0';return}
-  var m=masks[i];litImage.style.webkitMaskImage=m;litImage.style.maskImage=m;litImage.style.opacity='1';
+  lampLayers.forEach(function(im,k){im.style.opacity=k===i?'1':'0'});
  }
  function select(index,fromUser){
   if(index<0||index>=groups.length)return;
