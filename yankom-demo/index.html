@@ -10,19 +10,32 @@
   .ymn__sep{width:1px;height:22px;background:var(--ymn-line);margin:0 clamp(4px,.7vw,12px) 0 0}
   .ymn__item{display:flex;align-items:center;height:42px;padding:0 clamp(10px,1vw,16px);border:1px solid transparent;border-radius:999px;background:transparent;color:var(--ymn-text);text-decoration:none;white-space:nowrap;font:600 clamp(12.5px,.88vw,15px)/1 'Montserrat','Arial',sans-serif;letter-spacing:.03em;transition:background .25s,color .25s,border-color .25s;-webkit-tap-highlight-color:transparent}
   .ymn__item:hover,.ymn__item:focus-visible{outline:none;color:var(--ymn-amber2);background:rgba(255,179,65,.1);border-color:rgba(255,196,105,.38)}
+  /* Текущая сцена подсвечивается в меню (задаётся шкалой прогресса справа, событие ym:scene). */
+  .ymn__item.is-current{color:var(--ymn-amber2);background:rgba(255,179,65,.1);border-color:rgba(255,196,105,.38)}
+  .ymn__link.is-current{background:rgba(255,179,65,.1);color:var(--ymn-amber2)}
   .ymn__cta{display:flex;align-items:center;height:42px;margin-left:clamp(4px,.7vw,12px);padding:0 clamp(16px,1.5vw,24px);border-radius:999px;background:var(--ymn-amber);color:#132034;text-decoration:none;white-space:nowrap;font:700 clamp(12.5px,.88vw,15px)/1 'Montserrat','Arial',sans-serif;letter-spacing:.03em;box-shadow:0 6px 20px rgba(255,179,65,.28);transition:background .2s,transform .2s,box-shadow .2s}
   .ymn__cta:hover,.ymn__cta:focus-visible{outline:none;background:#ffc469;transform:translateY(-1px);box-shadow:0 10px 26px rgba(255,179,65,.4)}
+  .ymn__social{display:flex;align-items:center;gap:6px;margin-left:clamp(4px,.7vw,12px)}
+  .ymn__soc{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,196,105,.38);background:rgba(255,179,65,.08);color:var(--ymn-amber2);transition:background .2s,color .2s,border-color .2s,transform .2s}
+  .ymn__soc svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ymn__soc svg.ymn__fill{fill:currentColor;stroke:none}
+  .ymn__soc:hover,.ymn__soc:focus-visible{outline:none;background:var(--ymn-amber);border-color:var(--ymn-amber);color:#132034;transform:translateY(-1px)}
+  .ymn__social+.ymn__cta{margin-left:6px}
+  /* Номер и почта целиком: в плашке хватает места от 1560 px, на более узких остаются значки с подсказкой. */
+  .ymn__contact{display:none;align-items:center;height:38px;padding:0 10px;border-radius:999px;color:var(--ymn-text);text-decoration:none;white-space:nowrap;font:600 13px/1 'Montserrat','Arial',sans-serif;letter-spacing:.02em;transition:color .2s,background .2s}
+  .ymn__contact:hover,.ymn__contact:focus-visible{outline:none;color:var(--ymn-amber2);background:rgba(255,179,65,.1)}
+  @media (min-width:1640px){.ymn__contact{display:flex}.ymn__soc--contact{display:none}}
   .ymn__burger,.ymn__panel{display:none}
   .ymn__link{display:flex;align-items:center;gap:14px;padding:11px 14px;border-radius:14px;color:#f1f5fb;text-decoration:none;font-size:15px;font-weight:600;letter-spacing:.02em;transition:background .2s,color .2s}
   .ymn__link:hover,.ymn__link:focus-visible{outline:none;background:rgba(255,179,65,.1);color:var(--ymn-amber2)}
-  .ymn__num{flex:none;width:26px;font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ymn-muted)}
+  .ymn__num{flex:none;width:44px;white-space:nowrap;font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--ymn-muted)}
   .ymn__link:hover .ymn__num{color:var(--ymn-amber)}
   .ymn__mcta{display:flex;align-items:center;justify-content:center;margin:10px;height:46px;border-radius:999px;background:var(--ymn-amber);color:#132034;text-decoration:none;font:700 15px/1 'Montserrat','Arial',sans-serif}
   /* Планшет и телефон: все разделы собраны под кнопкой «Меню». */
-  @media (max-width:1100px){
+  @media (max-width:1240px){
     .ymn{padding:0 12px}
     .ymn__bar{width:100%;height:54px;padding:0 6px 0 20px;justify-content:space-between}
-    .ymn__item,.ymn__sep,.ymn__cta{display:none}
+    .ymn__item,.ymn__sep,.ymn__cta,.ymn__social{display:none}
     .ymn__burger{display:flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,196,105,.38);background:rgba(255,179,65,.1);color:var(--ymn-amber2);font:700 13px/1 'Montserrat','Arial',sans-serif;letter-spacing:.04em;cursor:pointer}
     .ymn__burger svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
     .ymn__panel{display:block;pointer-events:none;position:absolute;left:12px;right:12px;top:calc(54px + 10px);max-height:calc(100svh - 96px);overflow:auto;padding:8px;border-radius:20px;background:rgba(9,22,38,.94);border:1px solid var(--ymn-line);box-shadow:0 26px 64px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);opacity:0;transform:translateY(-8px) scale(.97);transform-origin:50% 0;transition:opacity .22s ease,transform .3s cubic-bezier(.2,.9,.3,1)}
@@ -32,14 +45,19 @@
 
 <div class="ymn" id="ymNav" role="navigation" aria-label="Основное меню">
   <div class="ymn__panel" id="ymnPanel">
-    <a class="ymn__link" href="#ymCompany"><span class="ymn__num">01</span>О компании</a>
-    <a class="ymn__link" href="#ymScene"><span class="ymn__num">02</span>Перевозки</a>
-    <a class="ymn__link" href="#ymScene4"><span class="ymn__num">03</span>Автопарк</a>
-    <a class="ymn__link" href="#ymScene5"><span class="ymn__num">04</span>Команда</a>
-    <a class="ymn__link" href="#ymPrices"><span class="ymn__num">05</span>Цены</a>
-    <a class="ymn__link" href="#ymGallery"><span class="ymn__num">06</span>Галерея</a>
-    <a class="ymn__link" href="#ymLocation"><span class="ymn__num">07</span>Расположение</a>
-    <a class="ymn__mcta" href="#ymLocation">Связаться</a>
+    <a class="ymn__link" href="#ymCompany">О компании</a>
+    <a class="ymn__link" href="#ymScene">Перевозки</a>
+    <a class="ymn__link" href="#ymScene4">Автопарк</a>
+    <a class="ymn__link" href="#ymPrices">Цены</a>
+    <a class="ymn__link" href="#ymScene5">Команда</a>
+    <a class="ymn__link" href="#ymGallery">Галерея</a>
+    <a class="ymn__link" href="#ymLocation">Расположение</a>
+    <a class="ymn__link" href="tel:+79128092203"><span class="ymn__num">Тел.</span>+7 912 809 22 03</a>
+    <a class="ymn__link" href="mailto:89128092203@mail.ru"><span class="ymn__num">Почта</span>89128092203@mail.ru</a>
+    <a class="ymn__link" href="#" data-messenger="max"><span class="ymn__num">MAX</span>Написать в MAX</a>
+    <a class="ymn__link" href="#" data-messenger="vk"><span class="ymn__num">ВК</span>ВКонтакте</a>
+    <a class="ymn__link" href="#" data-messenger="tg"><span class="ymn__num">TG</span>Telegram</a>
+    <a class="ymn__mcta" href="#ymContact">Связаться</a>
   </div>
   <nav class="ymn__bar" id="ymnBar">
     <a class="ymn__brand" href="#" aria-label="YANKOM — наверх">YANK<i>O</i>M</a>
@@ -47,11 +65,20 @@
     <a class="ymn__item" href="#ymCompany">О компании</a>
     <a class="ymn__item" href="#ymScene">Перевозки</a>
     <a class="ymn__item" href="#ymScene4">Автопарк</a>
-    <a class="ymn__item" href="#ymScene5">Команда</a>
     <a class="ymn__item" href="#ymPrices">Цены</a>
+    <a class="ymn__item" href="#ymScene5">Команда</a>
     <a class="ymn__item" href="#ymGallery">Галерея</a>
     <a class="ymn__item" href="#ymLocation">Расположение</a>
-    <a class="ymn__cta" href="#ymLocation">Связаться</a>
+    <span class="ymn__social">
+      <a class="ymn__contact" href="tel:+79128092203">+7 912 809 22 03</a>
+      <a class="ymn__contact" href="mailto:89128092203@mail.ru">89128092203@mail.ru</a>
+      <a class="ymn__soc ymn__soc--contact" href="tel:+79128092203" aria-label="Позвонить: +7 912 809 22 03" title="+7 912 809 22 03"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+      <a class="ymn__soc ymn__soc--contact" href="mailto:89128092203@mail.ru" aria-label="Написать на почту: 89128092203@mail.ru" title="89128092203@mail.ru"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6.5L20.500 7"/></svg></a>
+      <a class="ymn__soc" href="#" data-messenger="max" aria-label="Написать в MAX" title="MAX"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-4.7 0-8.5 3.4-8.5 7.6 0 2.4 1.2 4.5 3.2 5.9V21l3.1-1.9c.7.2 1.4.3 2.2.3 4.7 0 8.5-3.4 8.5-7.6S16.7 3.5 12 3.5z"/><path d="M8.6 13.2V9.6l3.4 2.7 3.4-2.7v3.6"/></svg></a>
+      <a class="ymn__soc" href="#" data-messenger="vk" aria-label="Мы во ВКонтакте" title="ВКонтакте"><svg class="ymn__fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.8 17.5C7.2 17.5 4 13.7 3.9 7.4h2.8c.1 4.6 2.1 6.5 3.7 6.9V7.4h2.6v4c1.6-.2 3.3-2 3.9-4h2.6c-.4 2.5-2.2 4.3-3.4 5.1 1.2.6 3.3 2.2 4 5h-2.9c-.6-1.9-2.1-3.4-4.2-3.6v3.6z"/></svg></a>
+      <a class="ymn__soc" href="#" data-messenger="tg" aria-label="Написать в Telegram" title="Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11.2l6.2 2.3 2.3 6.5 3.2-3.8 4.6 3.3L21 4z"/><path d="M9.2 13.5L21 4"/></svg></a>
+    </span>
+    <a class="ymn__cta" href="#ymContact">Связаться</a>
     <button class="ymn__burger" id="ymnBurger" type="button" aria-expanded="false" aria-controls="ymnPanel"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Меню</button>
   </nav>
 </div>
@@ -68,12 +95,34 @@
     if(id==='#ymScene4'){var pin=document.getElementById('ym4Pin');if(pin)return pin.getBoundingClientRect().top+window.pageYOffset+window.innerHeight*.8+2}
     return y;
   }
+  /* Общий переход для других блоков (футер): true, если ссылка обработана. */
+  window.ymNavTo=function(id){
+    if(id==='#'){window.scrollTo({top:0,behavior:'smooth'});return true}
+    var el=id&&id.length>1&&document.querySelector(id);
+    if(el){window.scrollTo({top:target(id,el),behavior:'smooth'});return true}
+    return !!(id&&id.length>1);
+  };
+  /* Значки мессенджеров: адреса задаются на странице как window.YM_LINKS={max:"https://max.ru/…",tg:"https://t.me/…"}; пока адрес не указан, значок ничего не открывает. */
+  window.YM_LINKS=Object.assign({
+    max:'https://max.ru/u/f9LHodD0cOJGcWIWlH1lfdaPZr7Fpd1WEGxXp4SnELDVQMUifQvJBuaq5aQ',
+    vk:'https://vk.ru/yankom',
+    tg:'https://t.me/YanKom22'
+  },window.YM_LINKS||{});
+  [].forEach.call(nav.querySelectorAll('[data-messenger]'),function(a){
+    var url=(window.YM_LINKS||{})[a.getAttribute('data-messenger')];
+    if(url){a.href=url;a.target='_blank';a.rel='noopener noreferrer'}
+    else{a.setAttribute('aria-disabled','true');a.title+=' (ссылка не указана)';a.addEventListener('click',function(e){e.preventDefault()})}
+  });
+  window.addEventListener('ym:scene',function(e){
+    var id='#'+(e.detail&&e.detail.id||'');
+    [].forEach.call(nav.querySelectorAll('.ymn__item,.ymn__link'),function(a){var on=a.getAttribute('href')===id;a.classList.toggle('is-current',on);if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+  });
   function setOpen(on){panel.classList.toggle('open',on);burger.setAttribute('aria-expanded',on?'true':'false')}
   burger.addEventListener('click',function(e){e.stopPropagation();setOpen(!panel.classList.contains('open'))});
   document.addEventListener('click',function(e){if(!nav.contains(e.target))setOpen(false)});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false)});
-  window.addEventListener('resize',function(){if(window.innerWidth>1100)setOpen(false)});
-  [].forEach.call(nav.querySelectorAll('a'),function(a){a.addEventListener('click',function(e){
+  window.addEventListener('resize',function(){if(window.innerWidth>1240)setOpen(false)});
+  [].forEach.call(nav.querySelectorAll('a:not([data-messenger])'),function(a){a.addEventListener('click',function(e){
     var id=a.getAttribute('href'),el=id&&id.length>1&&document.querySelector(id);
     if(id==='#'){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})}   // логотип — наверх
     else if(el){e.preventDefault();window.scrollTo({top:target(id,el),behavior:'smooth'})}   // если такого якоря на странице нет — ничего не ломаем
@@ -251,7 +300,7 @@
 <section class="yma" id="ymCompany" aria-labelledby="ymaHeading">
  <div class="yma__stage" id="ymaStage">
   <img class="yma__fallback" id="ymaBackground" alt="" width="1672" height="941" loading="lazy" decoding="async">
-  <header class="yma__header"><p class="yma__eyebrow"><b>02</b> / О компании</p><h2 id="ymaHeading">ЯнКом — логистика в движении</h2></header>
+  <header class="yma__header"><p class="yma__eyebrow">О компании</p><h2 id="ymaHeading">YANKOM — логистика в движении</h2></header>
   <div class="yma__map" aria-label="О компании в шести кварталах">
    <article class="yma__quarter yma__quarter--fact" data-yma-quarter="0" aria-label="Опыт"><strong class="yma__value">8 лет</strong><p class="yma__caption">в логистике</p></article>
    <article class="yma__quarter yma__quarter--fact yma__quarter--geo" data-yma-quarter="1" aria-label="География перевозок"><strong class="yma__value yma__value--geo">По России<br>и за рубежом</strong><p class="yma__caption">Перевозки</p></article>
@@ -356,10 +405,15 @@
 .ym2__vehicle>.ym2__cargo-focus{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;pointer-events:none;filter:brightness(1.17) saturate(1.12);transition:opacity .2s}
 .ym2__vehicle.is-inspecting>.ym2__cargo-focus{opacity:1}
 .ym2__hotspots{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .3s}
+/* Выделение строго по контуру груза: кнопки обрезаны по контуру (clip-path), обводка — SVG-полигон. */
+.ym2__outline{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .2s;overflow:visible}
+.ym2__outline polygon{fill:none;stroke:#ffc469;stroke-width:2.5;stroke-linejoin:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px #ffb445cc)}
+.ym2__vehicle.is-inspecting .ym2__outline{opacity:1}
 .ym2__hotspots.is-ready{opacity:1}
 .ym2__hotspot{position:absolute;border:1px solid transparent;background:transparent;border-radius:6px;cursor:pointer;color:#fff;padding:0;pointer-events:none;-webkit-tap-highlight-color:transparent}
 .ym2__hotspots.is-ready .ym2__hotspot{pointer-events:auto}
-.ym2__hotspot:hover,.ym2__hotspot.is-active,.ym2__hotspot:focus-visible{border-color:#ffc469;background:#ffbd3d0c;box-shadow:0 0 18px #ffb44544;outline:none}
+.ym2__hotspot{left:0;top:0;width:100%;height:100%;border:0;border-radius:0}
+.ym2__hotspot:hover,.ym2__hotspot.is-active,.ym2__hotspot:focus-visible{border:0;background:#ffbd3d12;box-shadow:none;outline:none}
 .ym2__hotspot span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:400 22px/1 Arial;color:#fff3d9;border:1px solid #ffd49a99;background:#172232a6;box-shadow:0 2px 12px #0008;transition:background .2s,transform .2s}
 .ym2__hotspot:hover span,.ym2__hotspot.is-active span,.ym2__hotspot:focus-visible span{background:#f4ab39;color:#132034;transform:translate(-50%,-50%) scale(1.15)}
 .ym2__cargo-info{position:absolute;left:5.7%;right:5.7%;bottom:9.5%;display:flex;gap:25px;align-items:center;opacity:0;pointer-events:none;transition:opacity .3s;color:#f5f7fb}
@@ -389,19 +443,20 @@
   <img class="ym2__background" data-ym2-image="scene2-terminal.jpg" alt="" width="1672" height="941" decoding="async">
   <div class="ym2__shade" aria-hidden="true"></div>
   <header class="ym2__head">
-   <div class="ym2__eyebrow"><span>03 /</span> ОРГАНИЗАЦИЯ ПЕРЕВОЗКИ</div>
+   <div class="ym2__eyebrow">ОРГАНИЗАЦИЯ ПЕРЕВОЗКИ</div>
    <h2 id="ym2Heading"><span>Ваш груз.</span>Доставка под контролем.</h2>
    <p>Подберём транспорт и водителя. Организуем и проконтролируем перевозку.</p>
   </header>
   <div class="ym2__vehicle" id="ym2Vehicle">
    <img data-ym2-image="scene2-truck-base-v2.png" alt="Белая фура YANKOM с открытым кузовом: паллеты, ящики, кабельная катушка, бочки и оборудование" width="2048" height="684" decoding="async" draggable="false">
    <img class="ym2__cargo-focus" id="ym2CargoFocus" data-ym2-image="scene2-truck-base-v2.png" alt="" aria-hidden="true" width="2048" height="684">
-   <div class="ym2__hotspots" id="ym2Hotspots" aria-label="Виды грузов"><button class="ym2__hotspot" type="button" data-cargo="0" style="left:3%;top:31%;width:12%;height:34%" aria-label="Коробки и паллеты" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
-   <button class="ym2__hotspot" type="button" data-cargo="1" style="left:15%;top:44%;width:10%;height:21%" aria-label="Упакованные товары" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
-   <button class="ym2__hotspot" type="button" data-cargo="2" style="left:26%;top:30%;width:15%;height:35%" aria-label="Грузы в ящиках" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
-   <button class="ym2__hotspot" type="button" data-cargo="3" style="left:41%;top:28%;width:11%;height:37%" aria-label="Кабель и катушки" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
-   <button class="ym2__hotspot" type="button" data-cargo="4" style="left:52%;top:40%;width:10%;height:25%" aria-label="Грузы в бочках" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button>
-   <button class="ym2__hotspot" type="button" data-cargo="5" style="left:62%;top:25%;width:13%;height:40%" aria-label="Оборудование" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true">+</span></button></div>
+   <svg class="ym2__outline" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon id="ym2OutlinePoly" points=""/></svg>
+   <div class="ym2__hotspots" id="ym2Hotspots" aria-label="Виды грузов"><button class="ym2__hotspot" type="button" data-cargo="0" style="clip-path:polygon(7.3% 33.88%,8% 32.53%,12% 32.08%,15% 32.83%,17.25% 33.58%,18% 34.78%,18% 42.28%,15.5% 43.48%,15.5% 64.47%,4.6% 64.47%,4.7% 44.38%,7.25% 43.48%);-webkit-clip-path:polygon(7.3% 33.88%,8% 32.53%,12% 32.08%,15% 32.83%,17.25% 33.58%,18% 34.78%,18% 42.28%,15.5% 43.48%,15.5% 64.47%,4.6% 64.47%,4.7% 44.38%,7.25% 43.48%)" aria-label="Коробки и паллеты" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true" style="left:11.3%;top:48.3%">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="1" style="clip-path:polygon(17% 39.28%,21% 38.68%,25.9% 39.28%,25.9% 64.47%,15.25% 64.47%,15.25% 61.47%,15.6% 48.28%,17% 47.98%);-webkit-clip-path:polygon(17% 39.28%,21% 38.68%,25.9% 39.28%,25.9% 64.47%,15.25% 64.47%,15.25% 61.47%,15.6% 48.28%,17% 47.98%)" aria-label="Упакованные товары" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true" style="left:20.6%;top:51.6%">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="2" style="clip-path:polygon(25.9% 30.73%,40% 29.99%,41.4% 32.23%,41.5% 64.47%,26% 64.47%);-webkit-clip-path:polygon(25.9% 30.73%,40% 29.99%,41.4% 32.23%,41.5% 64.47%,26% 64.47%)" aria-label="Грузы в ящиках" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true" style="left:33.7%;top:47.2%">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="3" style="clip-path:polygon(41.1% 34.48%,41.8% 29.69%,42.9% 28.49%,43.9% 28.79%,44.3% 31.03%,48.4% 31.03%,48.9% 28.79%,50% 28.34%,51% 29.99%,51.5% 33.28%,51.5% 60.72%,52% 60.72%,52% 64.77%,40.25% 64.77%,40.25% 60.57%,41.1% 59.97%);-webkit-clip-path:polygon(41.1% 34.48%,41.8% 29.69%,42.9% 28.49%,43.9% 28.79%,44.3% 31.03%,48.4% 31.03%,48.9% 28.79%,50% 28.34%,51% 29.99%,51.5% 33.28%,51.5% 60.72%,52% 60.72%,52% 64.77%,40.25% 64.77%,40.25% 60.57%,41.1% 59.97%)" aria-label="Кабель и катушки" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true" style="left:46.1%;top:46.6%">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="4" style="clip-path:polygon(52.1% 41.98%,56.25% 41.08%,60.75% 41.38%,61.4% 43.48%,61.4% 64.77%,51.9% 64.77%);-webkit-clip-path:polygon(52.1% 41.98%,56.25% 41.08%,60.75% 41.38%,61.4% 43.48%,61.4% 64.77%,51.9% 64.77%)" aria-label="Грузы в бочках" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true" style="left:56.6%;top:52.9%">+</span></button>
+   <button class="ym2__hotspot" type="button" data-cargo="5" style="clip-path:polygon(61.4% 38.98%,63% 35.68%,65% 27.74%,66.5% 26.69%,72% 26.69%,73.5% 29.99%,74.5% 35.23%,75.4% 37.48%,75.5% 62.22%,76.75% 62.67%,76.75% 64.77%,61.6% 64.77%,61.4% 59.97%);-webkit-clip-path:polygon(61.4% 38.98%,63% 35.68%,65% 27.74%,66.5% 26.69%,72% 26.69%,73.5% 29.99%,74.5% 35.23%,75.4% 37.48%,75.5% 62.22%,76.75% 62.67%,76.75% 64.77%,61.6% 64.77%,61.4% 59.97%)" aria-label="Оборудование" aria-describedby="ym2CargoDescription" aria-expanded="false" disabled><span aria-hidden="true" style="left:69.1%;top:45.7%">+</span></button></div>
    <div class="ym2__ground" aria-hidden="true"><i style="left:13.72%;top:92.6%"></i><i style="left:22.02%;top:93%"></i><i style="left:30.27%;top:93.5%"></i><i style="left:61.86%;top:94.8%"></i><i style="left:89.26%;top:94.8%"></i></div>
    <canvas class="ym2__reflection" id="ym2Reflection" aria-hidden="true"></canvas>
    <canvas class="ym2__wheels" id="ym2Wheels" aria-hidden="true"></canvas>
@@ -484,8 +539,9 @@
  if(window.IntersectionObserver){new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;if(visible)measure()},{rootMargin:'200px'}).observe(sec)}
 
  var cargoData=[{"title":"Коробки и паллеты","description":"Товары в коробках и на паллетах. Подбор транспорта под объём, вес и требования к погрузке.","x":3,"y":31,"w":12,"h":34},{"title":"Упакованные товары","description":"Грузы в защитной плёнке и транспортной упаковке. Размещение и крепление с учётом особенностей товара.","x":15,"y":44,"w":10,"h":21},{"title":"Грузы в ящиках","description":"Изделия и комплектующие в деревянной таре. Учитываем габариты, массу и способ загрузки.","x":26,"y":30,"w":15,"h":35},{"title":"Кабель и катушки","description":"Кабельная продукция на барабанах. Подбираем транспорт с учётом диаметра, веса и крепления катушки.","x":41,"y":28,"w":11,"h":37},{"title":"Грузы в бочках","description":"Продукция в бочках и другой промышленной таре. Условия перевозки определяются содержимым и упаковкой.","x":52,"y":40,"w":10,"h":25},{"title":"Оборудование","description":"Станки, агрегаты и оборудование в упаковке. Учитываем размеры, вес, способ погрузки и требования к фиксации.","x":62,"y":25,"w":13,"h":40}];
+ var cargoClip=["7.3% 33.88%,8% 32.53%,12% 32.08%,15% 32.83%,17.25% 33.58%,18% 34.78%,18% 42.28%,15.5% 43.48%,15.5% 64.47%,4.6% 64.47%,4.7% 44.38%,7.25% 43.48%","17% 39.28%,21% 38.68%,25.9% 39.28%,25.9% 64.47%,15.25% 64.47%,15.25% 61.47%,15.6% 48.28%,17% 47.98%","25.9% 30.73%,40% 29.99%,41.4% 32.23%,41.5% 64.47%,26% 64.47%","41.1% 34.48%,41.8% 29.69%,42.9% 28.49%,43.9% 28.79%,44.3% 31.03%,48.4% 31.03%,48.9% 28.79%,50% 28.34%,51% 29.99%,51.5% 33.28%,51.5% 60.72%,52% 60.72%,52% 64.77%,40.25% 64.77%,40.25% 60.57%,41.1% 59.97%","52.1% 41.98%,56.25% 41.08%,60.75% 41.38%,61.4% 43.48%,61.4% 64.77%,51.9% 64.77%","61.4% 38.98%,63% 35.68%,65% 27.74%,66.5% 26.69%,72% 26.69%,73.5% 29.99%,74.5% 35.23%,75.4% 37.48%,75.5% 62.22%,76.75% 62.67%,76.75% 64.77%,61.6% 64.77%,61.4% 59.97%"],cargoPoints=["7.3,33.88 8,32.53 12,32.08 15,32.83 17.25,33.58 18,34.78 18,42.28 15.5,43.48 15.5,64.47 4.6,64.47 4.7,44.38 7.25,43.48","17,39.28 21,38.68 25.9,39.28 25.9,64.47 15.25,64.47 15.25,61.47 15.6,48.28 17,47.98","25.9,30.73 40,29.99 41.4,32.23 41.5,64.47 26,64.47","41.1,34.48 41.8,29.69 42.9,28.49 43.9,28.79 44.3,31.03 48.4,31.03 48.9,28.79 50,28.34 51,29.99 51.5,33.28 51.5,60.72 52,60.72 52,64.77 40.25,64.77 40.25,60.57 41.1,59.97","52.1,41.98 56.25,41.08 60.75,41.38 61.4,43.48 61.4,64.77 51.9,64.77","61.4,38.98 63,35.68 65,27.74 66.5,26.69 72,26.69 73.5,29.99 74.5,35.23 75.4,37.48 75.5,62.22 76.75,62.67 76.75,64.77 61.6,64.77 61.4,59.97"],outlinePoly=document.getElementById('ym2OutlinePoly');
  var spots=document.getElementById('ym2Hotspots'),buttons=Array.from(spots.querySelectorAll('button')),focusImage=document.getElementById('ym2CargoFocus'),info=document.getElementById('ym2CargoInfo'),infoTitle=document.getElementById('ym2CargoTitle'),infoDescription=document.getElementById('ym2CargoDescription'),closeInfo=document.getElementById('ym2CargoClose'),selected=-1,pinned=false,ready=false;
- function showCargo(index){if(!ready)return;selected=index;var data=cargoData[index];vehicle.classList.add('is-inspecting');focusImage.style.clipPath='inset('+data.y+'% '+(100-data.x-data.w)+'% '+(100-data.y-data.h)+'% '+data.x+'%)';infoTitle.textContent=data.title;infoDescription.textContent=data.description;closeInfo.hidden=false;buttons.forEach(function(b,i){b.classList.toggle('is-active',i===index);b.setAttribute('aria-expanded',i===index?'true':'false')})}
+ function showCargo(index){if(!ready)return;selected=index;var data=cargoData[index];vehicle.classList.add('is-inspecting');focusImage.style.clipPath=focusImage.style.webkitClipPath='polygon('+cargoClip[index]+')';outlinePoly.setAttribute('points',cargoPoints[index]);infoTitle.textContent=data.title;infoDescription.textContent=data.description;closeInfo.hidden=false;buttons.forEach(function(b,i){b.classList.toggle('is-active',i===index);b.setAttribute('aria-expanded',i===index?'true':'false')})}
  function clearCargo(){selected=-1;pinned=false;vehicle.classList.remove('is-inspecting');closeInfo.hidden=true;infoTitle.textContent='Что нужно перевезти?';infoDescription.textContent='Наведите на груз в кузове, чтобы узнать подробнее. На телефоне — нажмите.';buttons.forEach(function(b){b.classList.remove('is-active');b.setAttribute('aria-expanded','false')})}
  function updateHotspots(p){var next=motion.matches||p>=.80;if(ready!==next){if(ready&&!next)clearCargo();ready=next;spots.classList.toggle('is-ready',ready);buttons.forEach(function(b){b.disabled=!ready})}info.style.opacity=smooth(seg(p,.76,.86))}   // DOM трогаем только при смене состояния, не на каждом кадре
  buttons.forEach(function(button,index){button.addEventListener('pointerenter',function(e){if(e.pointerType!=='touch'&&!pinned)showCargo(index)});button.addEventListener('focus',function(){if(!pinned)showCargo(index)});button.addEventListener('click',function(){if(pinned&&selected===index){clearCargo();return}pinned=true;showCargo(index)});button.addEventListener('keydown',function(e){if(e.key==='Escape'){clearCargo();button.blur()}})});
@@ -541,10 +597,19 @@
  .ym4__types{gap:8px}.ym4__types li{font-size:12px;padding:9px 12px}
 }
 @media(prefers-reduced-motion:reduce){.ym4__image,.ym4__bay:before,.ym4__number,.ym4__bay-label{transition:none}}
+/* Фуры без обводки и выделения: на десктопе рамки боксов убраны. Фары погашены, пока на фуру не нажмут. */
+.ym4__bay:before,.ym4__bay[aria-pressed=true]:before,.ym4__bay:hover:before{display:none}
+.ym4__lamps{position:absolute;left:0;top:0;width:100%;height:auto;aspect-ratio:1672/941;pointer-events:none;overflow:visible}
+.ym4__truck-dim,.ym4__truck-glow{transition:opacity .35s ease}
+.ym4__truck-glow{opacity:0;mix-blend-mode:screen}
+.ym4__truck.is-peek .ym4__truck-dim{opacity:.45}.ym4__truck.is-peek .ym4__truck-glow{opacity:.4}
+.ym4__truck.is-lit .ym4__truck-dim{opacity:0}.ym4__truck.is-lit .ym4__truck-glow{opacity:1}
+@media(prefers-reduced-motion:reduce){.ym4__truck-dim,.ym4__truck-glow{transition:none}}
 /* Меньше пустой стены над боксами: верх панорамы обрезан на 9 %, заголовок поднят, боксы сдвинуты соответственно. */
 @media(min-width:1101px){
 .ym4__canvas{aspect-ratio:1672/856}
 .ym4__image{position:absolute;left:0;bottom:0}
+.ym4__lamps{top:auto;bottom:0}
 .ym4__bays{inset:24.2% 0 15.4%}
 .ym4__heading{top:calc(var(--ym4-nav-space) - 4px)}
 .ym4__eyebrow{margin-bottom:8px}
@@ -566,9 +631,9 @@
 </style>
 <div class="ym4pin" id="ym4Pin">
 <section class="ym4" id="ymScene4" aria-labelledby="ym4Heading">
- <header class="ym4__heading"><p class="ym4__eyebrow"><b>04</b> / Типы прицепов</p><h2 id="ym4Heading">Разные прицепы. Один подход.</h2></header>
+ <header class="ym4__heading"><p class="ym4__eyebrow">Типы прицепов</p><h2 id="ym4Heading">Разные прицепы. Один подход.</h2></header>
  <div class="ym4__canvas">
-  <div class="ym4__panorama" id="ym4Panorama"><img class="ym4__image" id="ym4Image" width="1672" height="941" loading="lazy" decoding="async" alt="Иллюстрация четырёх типов прицепов в ангаре: тентованный, рефрижератор, бортовой и низкорамный с техникой"></div>
+  <div class="ym4__panorama" id="ym4Panorama"><img class="ym4__image" id="ym4Image" width="1672" height="941" loading="lazy" decoding="async" alt="Иллюстрация четырёх типов прицепов в ангаре: тентованный, рефрижератор, бортовой и низкорамный с техникой"><svg class="ym4__lamps" id="ym4Lamps" viewBox="0 0 1672 941" preserveAspectRatio="none" aria-hidden="true" focusable="false"></svg></div>
   <div class="ym4__bays" role="group" aria-label="Выберите группу прицепов">
    <button class="ym4__bay" type="button" data-ym4-bay="0" aria-pressed="true" aria-controls="ym4Details"><span class="ym4__number" aria-hidden="true">01</span><span class="ym4__bay-label">Закрытые</span></button>
    <button class="ym4__bay" type="button" data-ym4-bay="1" aria-pressed="false" aria-controls="ym4Details"><span class="ym4__number" aria-hidden="true">02</span><span class="ym4__bay-label">Рефрижераторы</span></button>
@@ -594,8 +659,30 @@
   {name:'Низкорамные и специальные',types:['Низкорамный','Трал','Низкорамная платформа','Телескопический','Балковоз (негабарит)']}
  ];
  image.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'scene4-hangar-clean-v1.png';
- function select(index){
+ /* Фары: пока на фуру не нажали, они «выключены» (светлая линза затемнена и обесцвечена), по клику загораются тёплым светом. Координаты ламп даны в пикселях исходного кадра 1672×941. */
+ var lampSvg=document.getElementById('ym4Lamps'),NS='http://www.w3.org/2000/svg',trucks=[],lit=-1;
+ var lamps=[[[95,637],[198,636]],[[499,641],[598,641]],[[882,641],[971,641]],[[1282,643],[1377,643]]];
+ function svgEl(name,attrs,parent){var el=document.createElementNS(NS,name);Object.keys(attrs||{}).forEach(function(k){el.setAttribute(k,attrs[k])});if(parent)parent.appendChild(el);return el}
+ if(lampSvg){
+  var defs=svgEl('defs',{},lampSvg),filter=svgEl('filter',{id:'ym4LampOff',x:'0',y:'0',width:'100%',height:'100%'},defs);
+  svgEl('feColorMatrix',{type:'saturate',values:'.1'},filter);
+  var transfer=svgEl('feComponentTransfer',{},filter);['feFuncR','feFuncG','feFuncB'].forEach(function(f){svgEl(f,{type:'linear',slope:'.55'},transfer)});
+  var glowGrad=svgEl('radialGradient',{id:'ym4LampGlow'},defs);
+  svgEl('stop',{offset:'0','stop-color':'#fff1c9','stop-opacity':'.95'},glowGrad);svgEl('stop',{offset:'.35','stop-color':'#ffc965','stop-opacity':'.55'},glowGrad);svgEl('stop',{offset:'1','stop-color':'#ffb341','stop-opacity':'0'},glowGrad);
+  lamps.forEach(function(pair,i){
+   var clip=svgEl('clipPath',{id:'ym4LampClip'+i},defs);pair.forEach(function(p){svgEl('circle',{cx:p[0],cy:p[1],r:9},clip)});
+   var g=svgEl('g',{'class':'ym4__truck'},lampSvg);
+   var dim=svgEl('g',{'class':'ym4__truck-dim','clip-path':'url(#ym4LampClip'+i+')'},g);
+   var img=svgEl('image',{x:0,y:0,width:1672,height:941,preserveAspectRatio:'none',filter:'url(#ym4LampOff)'},dim);img.setAttribute('href',image.src);img.setAttributeNS('http://www.w3.org/1999/xlink','href',image.src);
+   var glow=svgEl('g',{'class':'ym4__truck-glow'},g);pair.forEach(function(p){svgEl('circle',{cx:p[0],cy:p[1],r:38,fill:'url(#ym4LampGlow)'},glow)});
+   trucks.push(g);
+  });
+ }
+ function setLit(index){lit=index;trucks.forEach(function(g,i){g.classList.toggle('is-lit',i===index)})}
+ function peek(index,on){trucks.forEach(function(g,i){g.classList.toggle('is-peek',on&&i===index&&i!==lit)})}
+ function select(index,fromUser){
   if(index<0||index>=groups.length)return;
+  if(fromUser)setLit(lit===index&&active===index?-1:index);
   active=index;section.style.setProperty('--ym4-active',String(index));
   buttons.forEach(function(button,i){button.setAttribute('aria-pressed',i===index?'true':'false')});
   category.textContent=groups[index].name;
@@ -603,10 +690,12 @@
   types.replaceChildren.apply(types,items);
  }
  buttons.forEach(function(button,index){
-  button.addEventListener('click',function(){select(index)});
+  button.addEventListener('click',function(){select(index,true)});
+  button.addEventListener('pointerenter',function(e){if(e.pointerType!=='touch')peek(index,true)});
+  button.addEventListener('pointerleave',function(){peek(index,false)});
   button.addEventListener('keydown',function(event){
    var next=event.key==='ArrowRight'?(index+1)%4:event.key==='ArrowLeft'?(index+3)%4:event.key==='Home'?0:event.key==='End'?3:-1;
-   if(next<0)return;event.preventDefault();select(next);buttons[next].focus();
+   if(next<0)return;event.preventDefault();select(next,true);buttons[next].focus();
   });
  });
  var gesture=null;
@@ -615,7 +704,7 @@
  panorama.addEventListener('pointerup',function(event){
   if(!gesture||gesture.id!==event.pointerId)return;
   var dx=event.clientX-gesture.x,dy=event.clientY-gesture.y;gesture=null;
-  if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)select((active+(dx<0?1:3))%4);
+  if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)select((active+(dx<0?1:3))%4,true);
  });
  var nav=document.getElementById('ymNav'),bar=document.getElementById('ymnBar');
  function clearance(){if(nav&&bar){var top=parseFloat(getComputedStyle(nav).top)||14;section.style.setProperty('--ym4-nav-space',Math.ceil(top+bar.offsetHeight+24)+'px')}}
@@ -641,6 +730,88 @@
   scene.style.pointerEvents=q<1?'none':'';
  }
  addEventListener('scroll',update,{passive:true});addEventListener('resize',update);narrow.addEventListener('change',update);motion.addEventListener('change',update);update();
+})();
+</script>
+
+<!-- YANKOM / Стоимость перевозки. Выбранный вариант 3, все цены по запросу. -->
+<style>
+.ymp{--ymp-nav-space:96px;position:relative;isolation:isolate;min-height:100svh;overflow:hidden;background:#071321;color:#f4f7fc;font-family:'Montserrat',Arial,sans-serif;padding:calc(var(--ymp-nav-space) + 20px) 3.5% 70px}
+.ymp *{box-sizing:border-box}
+.ymp__background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2;pointer-events:none}
+.ymp__layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(460px,39%);gap:3.5vw;align-items:start;max-width:1920px;margin:0 auto}
+.ymp__left{min-width:0}.ymp__left h2{margin:12px 0 16px;font-size:clamp(38px,4.6vw,82px);line-height:1.1;letter-spacing:-.035em;font-weight:700;white-space:nowrap}
+.ymp__geography{display:flex;align-items:center;gap:20px;margin:0;font-size:clamp(18px,2vw,34px);line-height:1.35;font-weight:500;letter-spacing:.005em}.ymp__geography:before{content:'';width:24px;height:27px;flex:none;background:#ffb341;transform:skew(-25deg)}
+.ymp__form{margin:0;padding:clamp(24px,1.8vw,32px);border:1px solid #386285b3;border-radius:30px;background:linear-gradient(155deg,#0b2130e8,#061522ed);box-shadow:inset 0 1px 0 #ffffff08}
+.ymp__fields{display:grid;gap:24px}
+.ymp__field{display:grid;grid-template-columns:46px minmax(0,1fr);column-gap:18px;align-items:center;margin:0;min-width:0}
+.ymp__icon{grid-column:1;grid-row:1/3;width:42px;height:42px;fill:none;stroke:#f1b357;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ymp__label{display:block;grid-column:2;grid-row:1;margin:0 0 8px;font-size:clamp(17px,1.4vw,24px);line-height:1.25;font-weight:600}
+.ymp__input,.ymp__select-wrap{grid-column:2;grid-row:2;min-width:0}
+.ymp__input{display:block;width:100%;height:50px;padding:0 18px;border-radius:14px;border:1px solid #7d8d9f99;background:linear-gradient(100deg,#25394cc7,#26394bc7);color:#f4f7fc;font:400 clamp(16px,1.2vw,20px)/1.3 'Montserrat',Arial,sans-serif;box-shadow:inset 0 1px 0 #ffffff08;outline:none}
+.ymp__input::placeholder{color:#b4bfce;opacity:1}.ymp__input:focus{border-color:#ffc46c;box-shadow:0 0 0 3px #ffb34126}
+.ymp__select-wrap{position:relative}.ymp__select-wrap:after{content:'';position:absolute;right:19px;top:18px;width:10px;height:10px;border-right:2px solid #f4f7fc;border-bottom:2px solid #f4f7fc;transform:rotate(45deg);pointer-events:none}
+.ymp__select-wrap select{appearance:none;-webkit-appearance:none;padding-right:44px;color:#c1cbd6}.ymp__select-wrap select:valid{color:#f4f7fc}.ymp__select-wrap option{background:#132639;color:#f4f7fc}
+.ymp__amount{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:150px;margin-top:30px;padding:20px 14px;border:1px solid #edac50;border-radius:18px;background:radial-gradient(ellipse at 65% 120%,#e3993b3d,transparent 75%),linear-gradient(135deg,#16232ec9,#322b25ad);text-align:center}
+.ymp__amount strong{font-size:clamp(36px,3.6vw,62px);line-height:1.1;letter-spacing:-.03em;font-weight:600}.ymp__amount span{font-size:clamp(14px,1.3vw,22px);line-height:1.35;color:#edf0f4}
+.ymp__submit{display:block;width:100%;min-height:70px;margin-top:28px;border:0;border-radius:17px;background:linear-gradient(100deg,#ffb13a,#ffa416);color:#10202e;font:700 clamp(19px,1.75vw,29px)/1.25 'Montserrat',Arial,sans-serif;cursor:pointer;padding:15px 12px;transition:filter .2s,transform .2s}
+.ymp__submit:hover{filter:brightness(1.08)}.ymp__submit:focus-visible{outline:2px solid #fff1d7;outline-offset:5px}.ymp__submit:active{transform:translateY(1px)}
+.ymp__status{font-size:12px;line-height:1.5;color:#f1c27f;margin:12px 0 0}.ymp__status:empty{display:none}
+.ymp__footnote{position:absolute;left:3%;bottom:27px;margin:0;border-left:2px solid #efb35c;padding:8px 0 8px 20px;font-size:clamp(12px,1.15vw,19px);line-height:1.45;color:#e7ebf2;max-width:85%}
+@media(min-width:1051px) and (max-height:840px){.ymp{padding-top:calc(var(--ymp-nav-space) + 12px);padding-bottom:58px}.ymp__form{padding:22px}.ymp__fields{gap:16px}.ymp__field{grid-template-columns:36px minmax(0,1fr);column-gap:14px}.ymp__icon{width:33px;height:33px}.ymp__label{font-size:17px;margin-bottom:6px}.ymp__input{height:44px;font-size:16px}.ymp__select-wrap:after{top:14px}.ymp__amount{min-height:116px;margin-top:20px;gap:8px;padding:15px 12px}.ymp__amount strong{font-size:43px}.ymp__amount span{font-size:16px}.ymp__submit{min-height:56px;margin-top:20px;font-size:22px}.ymp__footnote{bottom:15px;font-size:12px}.ymp__left h2{margin-top:8px}}
+@media(max-width:1050px),(max-aspect-ratio:5/4){.ymp{padding:calc(var(--ymp-nav-space) + 18px) 22px 30px}.ymp__layout{display:block}.ymp__left{min-height:max(260px,calc(93.8vw - 80px))}.ymp__left h2{font-size:clamp(32px,5vw,52px);margin:0 0 14px;white-space:normal;max-width:700px}.ymp__geography{font-size:clamp(18px,3vw,28px);gap:13px}.ymp__geography:before{width:17px;height:21px}.ymp__background{inset:40px auto auto 0;width:166.667%;max-width:none;height:auto;object-fit:initial}.ymp__form{max-width:700px;margin:0 auto;background:linear-gradient(155deg,#0b2130fc,#061522fc);padding:25px;border-radius:24px}.ymp__field{grid-template-columns:37px minmax(0,1fr);column-gap:14px}.ymp__icon{width:33px;height:33px}.ymp__label{font-size:19px}.ymp__input{font-size:16px}.ymp__fields{gap:22px}.ymp__amount{min-height:130px;margin-top:25px}.ymp__amount strong{font-size:43px}.ymp__amount span{font-size:16px}.ymp__submit{min-height:58px;font-size:22px;margin-top:22px}.ymp__footnote{position:relative;inset:auto;max-width:700px;margin:24px auto 0;font-size:12px;padding-left:14px}}
+@media(max-width:420px){.ymp{padding-left:16px;padding-right:16px}.ymp__left h2{font-size:32px}.ymp__form{padding:22px 17px}.ymp__field{grid-template-columns:30px minmax(0,1fr);column-gap:11px}.ymp__icon{width:29px;height:29px}.ymp__label{font-size:18px}.ymp__input{padding-left:13px;border-radius:12px}.ymp__amount strong{font-size:39px}.ymp__submit{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.ymp__submit{transition:none}}
+/* Компактная форма на десктопе: поля по два в ряд, меньше отступов, высоты и шрифтов. */
+@media(min-width:1051px) and (min-aspect-ratio:5/4){
+.ymp{box-sizing:border-box;min-height:100svh;padding-top:calc(var(--ymp-nav-space) - 6px);padding-bottom:56px}
+.ymp__layout{grid-template-columns:minmax(0,1fr) minmax(440px,37%);min-height:calc(100svh - var(--ymp-nav-space) + 6px - 56px)}
+.ymp__form{align-self:center;justify-self:end;width:100%}
+.ymp__form{padding:20px 22px 22px;border-radius:24px}
+.ymp__fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px}
+.ymp__field{grid-template-columns:26px minmax(0,1fr);column-gap:10px;align-items:end}
+.ymp__icon{width:26px;height:26px;stroke-width:2.2;align-self:end;margin-bottom:9px}
+.ymp__label{font-size:14px;margin:0 0 6px}
+.ymp__input{height:42px;padding:0 11px;border-radius:11px;font-size:14px}.ymp__input::placeholder{font-size:13px}
+.ymp__select-wrap:after{top:14px;right:14px;width:8px;height:8px}.ymp__select-wrap select{padding-right:34px}
+.ymp__amount{min-height:0;margin-top:18px;gap:4px;padding:14px 12px;border-radius:14px}
+.ymp__amount strong{font-size:clamp(28px,2.4vw,40px)}.ymp__amount span{font-size:clamp(12px,.95vw,15px)}
+.ymp__submit{min-height:50px;margin-top:16px;border-radius:13px;font-size:clamp(16px,1.3vw,20px);padding:12px}
+}
+/* Края иллюстрации сходятся в тот же navy, что у соседних сцен. */
+.ymp{background:#071321}
+.ymp__background{mix-blend-mode:lighten;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 20%,#000 84%,transparent 100%),linear-gradient(90deg,#000 0%,#000 68%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 20%,#000 84%,transparent 100%),linear-gradient(90deg,#000 0%,#000 68%,transparent 100%);-webkit-mask-composite:source-in;mask-composite:intersect}
+</style>
+<section class="ymp" id="ymPrices" aria-labelledby="ymPriceHeading">
+ <img class="ymp__background" id="ymPriceBackground" alt="" width="1672" height="941" loading="lazy" decoding="async">
+ <div class="ymp__layout">
+  <header class="ymp__left"><h2 id="ymPriceHeading">Стоимость перевозки</h2><p class="ymp__geography">По России и за рубежом</p></header>
+  <form class="ymp__form" id="ymPriceForm" aria-label="Запрос стоимости перевозки">
+   <div class="ymp__fields">
+    <label class="ymp__field"><svg class="ymp__icon" viewBox="0 0 40 48" aria-hidden="true"><path d="M20 45S5 27 5 17a15 15 0 0 1 30 0c0 10-15 28-15 28z"/><circle cx="20" cy="17" r="5"/></svg><span class="ymp__label">Откуда</span><input class="ymp__input" name="from" required maxlength="80" autocomplete="off" placeholder="Пункт отправления"></label>
+    <label class="ymp__field"><svg class="ymp__icon" viewBox="0 0 40 48" aria-hidden="true"><path d="M20 45S5 27 5 17a15 15 0 0 1 30 0c0 10-15 28-15 28z"/><circle cx="20" cy="17" r="5"/></svg><span class="ymp__label">Куда</span><input class="ymp__input" name="to" required maxlength="80" autocomplete="off" placeholder="Пункт назначения"></label>
+    <label class="ymp__field"><svg class="ymp__icon" viewBox="0 0 44 44" aria-hidden="true"><path d="m4 12 18-9 18 9v20l-18 9-18-9V12zm0 0 18 9 18-9M22 21v20M13 7l18 9"/></svg><span class="ymp__label">Что перевозим</span><input class="ymp__input" name="cargo" required maxlength="100" placeholder="Описание груза"></label>
+    <label class="ymp__field"><svg class="ymp__icon" viewBox="0 0 48 36" aria-hidden="true"><path d="M3 3h40v23H3zM1 26h46"/><circle cx="14" cy="31" r="3"/><circle cx="25" cy="31" r="3"/></svg><span class="ymp__label">Тип прицепа</span><span class="ymp__select-wrap"><select class="ymp__input" name="trailer" required><option value="" disabled selected>Выбрать</option>Тентованный</option><option>Рефрижератор</option><option>Изотермический</option><option>Бортовой</option><option>Низкорамный / трал</option><option>Контейнер</option><option>Другой тип</option><option>Помогите подобрать</option></select></span></label>
+   </div>
+   <button class="ymp__submit" type="submit">Запросить расчёт</button><p class="ymp__status" id="ymPriceStatus" role="status" aria-live="polite"></p>
+  </form>
+ </div>
+ <p class="ymp__footnote">Стоимость зависит от маршрута, груза и условий перевозки</p>
+</section>
+<script>
+(function(){
+ 'use strict';
+ var section=document.getElementById('ymPrices'),image=document.getElementById('ymPriceBackground'),form=document.getElementById('ymPriceForm'),status=document.getElementById('ymPriceStatus'),nav=document.getElementById('ymNav'),bar=document.getElementById('ymnBar');
+ image.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'scene-pricing-route-v3.png';
+ function clearance(){if(nav&&bar){var top=parseFloat(getComputedStyle(nav).top)||14;section.style.setProperty('--ymp-nav-space',Math.ceil(top+bar.offsetHeight+24)+'px')}}
+ addEventListener('resize',clearance);if(window.ResizeObserver&&bar)new ResizeObserver(clearance).observe(bar);clearance();
+ form.addEventListener('submit',function(event){
+  event.preventDefault();status.textContent='';if(!form.reportValidity())return;
+  var contact=document.getElementById('ymqForm'),dialog=document.getElementById('ymqDialog'),link=document.querySelector('a[href="#ymContact"]');
+  if(!contact||!dialog||!link){status.textContent='Не удалось открыть заявку. Попробуйте ещё раз.';return}
+  var values={from:form.elements.from.value.trim(),to:form.elements.to.value.trim(),cargo:form.elements.cargo.value.trim()+' · Тип прицепа: '+form.elements.trailer.value};
+  Object.keys(values).forEach(function(key){var field=contact.elements[key];if(field){field.value=values[key];field.dispatchEvent(new Event('input',{bubbles:true}))}});
+  link.click();
+ });
 })();
 </script>
 
@@ -748,10 +919,13 @@
  .ym3__contacts dd{font-size:15px}.ym3__bio p{font-size:14px}
 }
 
+/* Единый цвет сцены и пространства вокруг прозрачного макета офиса. */
+.ym3,.ym3__layout,.ym3__model{background:#071321}
+.ym3__office{background:transparent}
 </style>
 <section class="ym3" id="ymScene5" aria-labelledby="ym3Heading">
  <div class="ym3__layout">
-   <header class="ym3__head"><p class="ym3__eyebrow"><b>05</b> / Наша команда</p><h2 id="ym3Heading">Команда YANKOM</h2></header>
+   <header class="ym3__head"><p class="ym3__eyebrow">Наша команда</p><h2 id="ym3Heading">Команда YANKOM</h2></header>
   <div class="ym3__model" id="ym3OfficeFrame">
    <img class="ym3__office" id="ym3Office" alt="Архитектурный макет офиса YANKOM с четырьмя сотрудниками за рабочими столами" width="1280" height="1280" loading="lazy" decoding="async">
    <button class="ym3__hotspot is-active" data-person="0" type="button" aria-label="Анна — демонстрационное досье" aria-controls="ym3Profile" aria-expanded="true"><span>01</span></button>
@@ -801,4 +975,502 @@
 
 })();
 </script>
-<script>var view=new URLSearchParams(location.search).get("view"),sceneIds={scene1:"ymScene1",scene2:"ymCompany",scene3:"ymScene",scene4:"ymScene4",scene5:"ymScene5"};if(sceneIds[view]){addEventListener("load",function(){var s=document.getElementById(sceneIds[view]);if(s){var desktop=!matchMedia("(max-width:999px), (max-aspect-ratio:5/4)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches,anchor=view==="scene4"?(document.getElementById("ym4Pin")||s):s,top=anchor.getBoundingClientRect().top+scrollY;if(desktop&&(view==="scene3"||view==="scene4"))top+=innerHeight*.8;scrollTo(0,top)}})}</script></body></html>
+
+<!-- YANKOM / Сцена 07. Галерея: три ряда фото отгрузок, при прокрутке соседние ряды едут в разные стороны (первый и третий вправо, второй влево). 19 фото пользователя: assets/gallery/ship-01..19.jpg; список cards в скрипте. -->
+<style>
+.ymg{--ymg-nav:96px;--ymg-w:clamp(230px,30vw,440px);--ymg-gap:clamp(20px,3vw,48px);--ymg-t:400px;position:relative;z-index:4;min-height:100svh;background:#071321;color:#f3f6fb;font-family:'Montserrat',Arial,sans-serif;border-top:1px solid #8291a32c;overflow:hidden;padding-bottom:clamp(50px,6vw,100px)}
+.ymg *{box-sizing:border-box}
+.ymg__head{max-width:1280px;margin:0 auto;padding:calc(var(--ymg-nav) + clamp(24px,3vw,56px)) 5.6% clamp(34px,4vw,64px)}
+.ymg__eyebrow{margin:0 0 14px;font-size:clamp(10px,1.05vw,18px);color:#d6bb99;letter-spacing:.03em}.ymg__eyebrow b{color:#f7ba62;font-weight:600}
+.ymg__head h2{margin:0;font-size:clamp(34px,4.6vw,86px);line-height:1.05;font-weight:600;letter-spacing:-.035em}
+.ymg__head p{max-width:640px;margin:clamp(14px,1.6vw,26px) 0 0;font-size:clamp(14px,1.3vw,20px);line-height:1.55;color:#9fb0c6}
+.ymg__row{display:flex;gap:var(--ymg-gap);margin:0 0 var(--ymg-gap) calc(-1 * var(--ymg-t) - 60px);will-change:transform}
+.ymg__card{position:relative;flex:none;width:var(--ymg-w);height:calc(var(--ymg-w) * .8);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .3s ease;-webkit-tap-highlight-color:transparent}
+.ymg__card:hover,.ymg__card:focus-visible{transform:translateY(-12px);outline:none}
+.ymg__img{position:absolute;inset:0;background-color:#102034;background-repeat:no-repeat;transition:transform .5s ease}
+.ymg__card:hover .ymg__img{transform:scale(1.04)}
+.ymg__shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(3,10,18,.8));opacity:0;transition:opacity .3s}
+.ymg__card:hover .ymg__shade,.ymg__card:focus-visible .ymg__shade{opacity:1}
+.ymg__cap{position:absolute;left:18px;bottom:14px;margin:0;font-size:clamp(13px,1.1vw,17px);font-weight:600;color:#fff;opacity:0;transition:opacity .3s}
+.ymg__card:hover .ymg__cap,.ymg__card:focus-visible .ymg__cap{opacity:1}
+.ymg__card:focus-visible{box-shadow:0 0 0 2px #ffc469}
+.ymg__view{font-family:'Montserrat',Arial,sans-serif;color:#e3e8f0;position:fixed;inset:0;z-index:9999;display:none;place-items:center;padding:24px;background:rgba(3,10,18,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ymg__view.is-open{display:grid}
+.ymg__box{position:relative;width:min(92vw,1000px);max-height:88svh;display:flex;flex-direction:column;align-items:center}
+.ymg__photo{width:min(92vw,1000px);aspect-ratio:4/3;max-height:80svh;margin:0 auto;border-radius:14px;background-color:#102034;background-repeat:no-repeat;border:1px solid #e9ae5950;box-shadow:0 30px 90px #000a}
+.ymg__note{margin:12px 2px 0;text-align:center;font-size:13px;color:#9fb0c6}
+.ymg__close{position:absolute;right:-6px;top:-46px;width:38px;height:38px;border-radius:50%;border:1px solid #8395ac66;background:#0b1a2d;color:#e3e8f0;font-size:22px;line-height:1;cursor:pointer;transition:color .2s,border-color .2s}
+.ymg__close:hover,.ymg__close:focus-visible{outline:none;color:#ffc469;border-color:#ffc46980}
+@media(max-width:767px){.ymg{--ymg-nav:84px;--ymg-w:clamp(200px,62vw,300px)}.ymg__close{right:0}.ymg__card{border-radius:10px}}
+@media(prefers-reduced-motion:reduce){.ymg__row{transform:none!important}}
+</style>
+<section class="ymg" id="ymGallery" aria-labelledby="ymgHeading">
+ <header class="ymg__head"><p class="ymg__eyebrow">Галерея</p><h2 id="ymgHeading">Наши отгрузки</h2><p>Фото перевозок: нажмите на снимок, чтобы открыть его целиком.</p></header>
+ <div class="ymg__row" data-row="0"></div>
+ <div class="ymg__row" data-row="1"></div>
+ <div class="ymg__row" data-row="2"></div>
+ <div class="ymg__view" id="ymgView" role="dialog" aria-modal="true" aria-label="Фото">
+  <div class="ymg__box"><button class="ymg__close" type="button" id="ymgClose" aria-label="Закрыть">×</button><div class="ymg__photo" id="ymgPhoto"></div><p class="ymg__note">Фото отгрузки</p></div>
+ </div>
+</section>
+<script>
+(function(){
+ 'use strict';
+ var section=document.getElementById('ymGallery'),view=document.getElementById('ymgView'),photo=document.getElementById('ymgPhoto'),closeBtn=document.getElementById('ymgClose');
+ if(!section)return;
+ var base=window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/';
+ /* Фото отгрузок (assets/gallery/ship-NN.jpg). ar: ширина/высота снимка. Карточка показывает снимок целиком, в его пропорциях; по клику он открывается крупно. Для Тильды файлы gallery/ship-NN.jpg нужно залить в qw3rez.github.io/landing-builder-assets/yankom/gallery/. */
+ var cards=[[1,1],[2,.75],[3,1.333],[4,1.333],[5,1.333],[6,.75],[7,.753],[8,.75],[9,.75],[10,.75],[11,.75],[12,.45],[13,.45],[14,.562],[15,.562],[16,.562],[17,.75],[18,.75],[19,2.222]].map(function(c){return {src:'gallery/ship-'+(c[0]<10?'0':'')+c[0]+'.jpg',ar:c[1],n:c[0]}});
+ var rows=Array.from(section.querySelectorAll('[data-row]')),rowCards=[[],[],[]];
+ function makeCard(c){
+  var card=document.createElement('div');card.className='ymg__card';card.setAttribute('role','button');card.setAttribute('tabindex','0');card.setAttribute('aria-label','Открыть фото отгрузки '+c.n);
+  card.style.width='calc(var(--ymg-w) * .8 * '+Math.max(.56,Math.min(2.2,c.ar))+')';
+  var img=document.createElement('div');img.className='ymg__img';img.style.backgroundImage='url("'+base+c.src+'")';img.style.backgroundSize='cover';img.style.backgroundPosition='center';
+  var shade=document.createElement('div');shade.className='ymg__shade';var cap=document.createElement('p');cap.className='ymg__cap';cap.textContent='Открыть фото';
+  card.appendChild(img);card.appendChild(shade);card.appendChild(cap);
+  card.addEventListener('click',function(){openPhoto(c)});
+  card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openPhoto(c)}});
+  return card;
+ }
+ cards.forEach(function(c,i){rowCards[i%3].push(c);rows[i%3].appendChild(makeCard(c))});
+ /* Если фото в ряду не хватает на ширину экрана с запасом на движение, ряд дополняется теми же снимками по кругу. */
+ function fillRows(need){rows.forEach(function(row,r){var list=rowCards[r],k=0;while(row.scrollWidth<need&&k<60){row.appendChild(makeCard(list[(row.children.length)%list.length]));k++}})}
+ function openPhoto(c){
+  if(view.parentNode!==document.body)document.body.appendChild(view);   // окно поверх меню: вынести из контекста наложения сцены
+  photo.style.backgroundImage='url("'+base+c.src+'")';photo.style.backgroundSize='cover';photo.style.backgroundPosition='center';
+  photo.style.aspectRatio=String(c.ar);photo.style.width='min(92vw,'+(78*c.ar).toFixed(1)+'svh)';
+  view.classList.add('is-open');closeBtn.focus();
+ }
+ function closeView(){view.classList.remove('is-open')}
+ closeBtn.addEventListener('click',closeView);
+ view.addEventListener('click',function(e){if(e.target===view)closeView()});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeView()});
+ /* Движение рядов: прогресс p идёт от 0 (секция только показалась снизу) до 1 (ушла вверх). Ряды 1 и 3 едут вправо, ряд 2 влево; сглаживание как у пружины. */
+ var motion=matchMedia('(prefers-reduced-motion:reduce)'),target=.5,cur=.5,raf=0,last=0,visible=true,travel=400;
+ function clamp(v){return Math.max(0,Math.min(1,v))}
+ function readTarget(){var r=section.getBoundingClientRect();target=clamp((innerHeight-r.top)/(innerHeight+r.height))}
+ function sizes(){travel=Math.round(Math.min(520,innerWidth*.36));section.style.setProperty('--ymg-t',travel+'px')}
+ function paint(p){var d=(p-.5)*2*travel;rows[0].style.transform='translateX('+d.toFixed(1)+'px)';rows[1].style.transform='translateX('+(-d).toFixed(1)+'px)';rows[2].style.transform='translateX('+d.toFixed(1)+'px)'}
+ function tick(now){
+  raf=0;if(!visible)return;
+  var dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;readTarget();
+  cur+=(target-cur)*(1-Math.exp(-dt*9));if(Math.abs(target-cur)<.0002)cur=target;
+  paint(cur);raf=requestAnimationFrame(tick);
+ }
+ function kick(){if(!raf&&visible&&!motion.matches){last=performance.now();raf=requestAnimationFrame(tick)}}
+ var nav=document.getElementById('ymNav'),bar=document.getElementById('ymnBar');
+ function clearance(){if(nav&&bar){var top=parseFloat(getComputedStyle(nav).top)||14;section.style.setProperty('--ymg-nav',Math.ceil(top+bar.offsetHeight+24)+'px')}}
+ addEventListener('resize',function(){sizes();fillRows(innerWidth+2*travel+360);clearance();readTarget();cur=target;if(!motion.matches)paint(cur)});
+ if(window.ResizeObserver&&bar)new ResizeObserver(clearance).observe(bar);
+ if(window.IntersectionObserver){new IntersectionObserver(function(en){visible=en[0].isIntersecting;if(visible)kick()},{rootMargin:'200px'}).observe(section)}
+ sizes();fillRows(innerWidth+2*travel+360);clearance();readTarget();cur=target;if(!motion.matches)paint(cur);kick();
+})();
+</script>
+
+<!-- YANKOM / Сцена 08. Расположение: карта с меткой офиса и контакты. Карта: Leaflet + OpenStreetMap (подключаются из cdnjs при показе сцены), цвета приведены к стилю сайта. Координаты офиса: 55.1543963, 61.3030088 (Гостевая улица, 1, Шершни, Челябинск; найдены по адресу в OpenStreetMap, проверить на месте). -->
+<style>
+.yml{--yml-nav:96px;position:relative;z-index:4;min-height:100svh;background:#071321;color:#f3f6fb;font-family:'Montserrat',Arial,sans-serif;border-top:1px solid #8291a32c;overflow:hidden}
+.yml *{box-sizing:border-box}
+.yml__map{position:absolute;inset:0;z-index:0;isolation:isolate;background:#071321}
+.yml__map .leaflet-tile-pane{filter:invert(1) hue-rotate(195deg) brightness(.85) saturate(.3) contrast(.95)}
+.yml__map.leaflet-container{background:#071321;font-family:'Montserrat',Arial,sans-serif}
+/* Тёмные участки карты выравниваются до фона страницы #071321 (светлее него остаётся только рисунок карты). */
+.yml__map:after{content:'';position:absolute;inset:0;z-index:450;pointer-events:none;background:#071321;mix-blend-mode:lighten}
+.yml__map .leaflet-control-zoom{border:1px solid #8395ac50;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px #0007}
+.yml__map .leaflet-control-zoom a{width:38px;height:38px;line-height:38px;background:#0b1a2dee;color:#e3e8f0;border-bottom:1px solid #8395ac40;font-size:20px}
+.yml__map .leaflet-control-zoom a:hover{background:#ffb341;color:#132034}
+.yml__map .leaflet-control-attribution{background:#071321cc;color:#8395ac;font-size:10px}.yml__map .leaflet-control-attribution a{color:#b4c3d6}
+.yml__pin{position:relative;width:0;height:0}
+.yml__pin-dot{position:absolute;left:-18px;top:-46px;width:36px;height:46px;filter:drop-shadow(0 6px 10px #000a)}
+.yml__pin-dot svg{display:block;width:36px;height:46px}
+.yml__pin-pulse{position:absolute;left:-22px;top:-22px;width:44px;height:44px;border-radius:50%;background:#ffb34150;animation:yml-pulse 2.4s ease-out infinite}
+.yml__pin-label{position:absolute;left:24px;top:-42px;white-space:nowrap;padding:7px 12px;border-radius:999px;background:#0b1a2df2;border:1px solid #ffc46980;color:#fff;font:800 12px/1 'Montserrat',Arial,sans-serif;letter-spacing:.2em;box-shadow:0 6px 18px #0008}
+.yml__pin-label i{font-style:normal;color:#ffb341}
+@keyframes yml-pulse{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+.yml__panel{position:relative;z-index:3;width:min(460px,calc(100% - 11.2%));margin:calc(var(--yml-nav) + 12px) 0 40px 5.6%;padding:clamp(22px,2.2vw,34px);border-radius:24px;background:linear-gradient(155deg,#0b2130f2,#061522f5);border:1px solid #386285b3;box-shadow:0 30px 80px #000a,inset 0 1px 0 #ffffff0d;pointer-events:auto}
+.yml__eyebrow{margin:0 0 12px;font-size:clamp(10px,1vw,15px);color:#d6bb99;letter-spacing:.03em}.yml__eyebrow b{color:#f7ba62;font-weight:600}
+.yml__panel h2{margin:0 0 6px;font-size:clamp(28px,2.6vw,44px);line-height:1.1;font-weight:600;letter-spacing:-.03em}
+.yml__panel h2:after{content:'';display:block;width:50px;height:3px;background:#e9ae59;margin-top:14px}
+.yml__list{margin:22px 0 0;padding:0;display:grid;gap:16px}
+.yml__item{display:grid;grid-template-columns:38px minmax(0,1fr);gap:0 14px;align-items:start}
+.yml__ico{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid #ffc4695c;background:#ffb3410d;color:#ffc469}
+.yml__ico svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.yml__item dt{margin:0 0 3px;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8395ac}
+.yml__item dd{margin:0;font-size:clamp(14px,1.05vw,16px);line-height:1.45;color:#e8eef6}
+.yml__item a{color:inherit;text-decoration:none;transition:color .2s}.yml__item a:hover,.yml__item a:focus-visible{outline:none;color:#ffc469}
+.yml__item address{font-style:normal}
+.yml__actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.yml__btn{display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 22px;border-radius:999px;font:700 14px/1 'Montserrat',Arial,sans-serif;letter-spacing:.03em;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s,box-shadow .2s,color .2s,border-color .2s}
+.yml__btn--main{background:#ffb341;color:#132034;box-shadow:0 6px 20px #ffb34147}.yml__btn--main:hover,.yml__btn--main:focus-visible{outline:none;background:#ffc469;transform:translateY(-1px)}
+.yml__btn--ghost{border:1px solid #ffc46970;color:#ffc469;background:transparent}.yml__btn--ghost:hover,.yml__btn--ghost:focus-visible{outline:none;background:#ffb34118;border-color:#ffc469}
+.yml__social{display:flex;gap:8px;margin-top:20px}
+.yml__soc{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid #ffc4695c;background:#ffb3410d;color:#ffc469;transition:background .2s,color .2s,transform .2s}
+.yml__soc svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.yml__soc svg.yml__fill{fill:currentColor;stroke:none}
+.yml__soc:hover,.yml__soc:focus-visible{outline:none;background:#ffb341;color:#132034;transform:translateY(-2px)}
+.yml__hint{position:absolute;right:18px;bottom:34px;z-index:2;margin:0;padding:8px 14px;border-radius:999px;background:#071321d9;border:1px solid #8395ac40;font-size:11px;letter-spacing:.08em;color:#9fb0c6;pointer-events:none;transition:opacity .3s}
+.yml__hint.is-hidden{opacity:0}
+.yml__fallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:#9fb0c6;font-size:14px;padding:20px}
+.yml__map.is-failed .yml__fallback{display:grid}
+@media(max-width:1000px){
+ .yml{min-height:0}
+ .yml__map{position:relative;inset:auto;height:62svh;min-height:340px;z-index:0}
+ .yml__panel{width:auto;margin:-60px 16px 40px;padding:22px}
+ .yml__eyebrow{margin-top:0}
+ .yml__top{padding:calc(var(--yml-nav) + 8px) 0 0}
+ .yml__hint{bottom:80px;right:12px}
+}
+@media(prefers-reduced-motion:reduce){.yml__pin-pulse{animation:none;opacity:.4}}
+</style>
+<section class="yml" id="ymLocation" aria-labelledby="ymlHeading">
+ <div class="yml__map" id="ymlMap" role="region" aria-label="Карта: офис ЯнКом, Гостевая улица, 1, Челябинск"><div class="yml__fallback">Карта не загрузилась. Адрес: Гостевая улица, 1, Шершни, Челябинск.</div></div>
+ <p class="yml__hint" id="ymlHint">Перетащите карту · масштаб: кнопки +/− или Ctrl + колесо</p>
+ <div class="yml__panel">
+  <p class="yml__eyebrow">Расположение</p>
+  <h2 id="ymlHeading">Как нас найти</h2>
+  <dl class="yml__list">
+   <div class="yml__item"><span class="yml__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><dt>Адрес</dt><dd><address>ОЦ На Гостевой<br>Гостевая улица, 1, подъезд 1, 2 этаж, офис 210<br>пос. Шершни, Центральный район, Челябинск, 454902</address></dd></div></div>
+   <div class="yml__item"><span class="yml__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><div><dt>Телефон</dt><dd><a href="tel:+79128092203">+7 912 809 22 03</a></dd></div></div>
+   <div class="yml__item"><span class="yml__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6.5L20.5 7"/></svg></span><div><dt>Почта</dt><dd><a href="mailto:89128092203@mail.ru">89128092203@mail.ru</a></dd></div></div>
+  </dl>
+  <div class="yml__actions">
+   <a class="yml__btn yml__btn--main" href="#ymContact">Оставить заявку</a>
+   <a class="yml__btn yml__btn--ghost" id="ymlRoute" href="https://yandex.ru/maps/?pt=61.3030088,55.1543963&z=17&l=map" target="_blank" rel="noopener noreferrer">Построить маршрут</a>
+  </div>
+  <div class="yml__social" aria-label="Мессенджеры">
+   <a class="yml__soc" href="#" data-messenger="max" aria-label="Написать в MAX" title="MAX"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-4.7 0-8.5 3.4-8.5 7.6 0 2.4 1.2 4.5 3.2 5.9V21l3.1-1.9c.7.2 1.4.3 2.2.3 4.7 0 8.5-3.4 8.5-7.6S16.7 3.5 12 3.5z"/><path d="M8.6 13.2V9.6l3.4 2.7 3.4-2.7v3.6"/></svg></a>
+   <a class="yml__soc" href="#" data-messenger="vk" aria-label="Мы во ВКонтакте" title="ВКонтакте"><svg class="yml__fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.8 17.5C7.2 17.5 4 13.7 3.9 7.4h2.8c.1 4.6 2.1 6.5 3.7 6.9V7.4h2.6v4c1.6-.2 3.3-2 3.9-4h2.6c-.4 2.5-2.2 4.3-3.4 5.1 1.2.6 3.3 2.2 4 5h-2.9c-.6-1.9-2.1-3.4-4.2-3.6v3.6z"/></svg></a>
+   <a class="yml__soc" href="#" data-messenger="tg" aria-label="Написать в Telegram" title="Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11.2l6.2 2.3 2.3 6.5 3.2-3.8 4.6 3.3L21 4z"/><path d="M9.2 13.5L21 4"/></svg></a>
+  </div>
+ </div>
+</section>
+<script>
+(function(){
+ 'use strict';
+ var section=document.getElementById('ymLocation'),mapEl=document.getElementById('ymlMap'),hint=document.getElementById('ymlHint');
+ if(!section||!mapEl)return;
+ var OFFICE=[55.1543963,61.3030088];
+ /* Ссылки на мессенджеры берутся из window.YM_LINKS (задаётся в блоке меню). */
+ function links(){var l=window.YM_LINKS||{};[].forEach.call(section.querySelectorAll('[data-messenger]'),function(a){var u=l[a.getAttribute('data-messenger')];if(u){a.href=u;a.target='_blank';a.rel='noopener noreferrer'}else{a.addEventListener('click',function(e){e.preventDefault()})}})}
+ links();
+ var nav=document.getElementById('ymNav'),bar=document.getElementById('ymnBar');
+ function clearance(){if(nav&&bar){var top=parseFloat(getComputedStyle(nav).top)||14;section.style.setProperty('--yml-nav',Math.ceil(top+bar.offsetHeight+24)+'px')}}
+ clearance();addEventListener('resize',clearance);
+ /* Карта подгружается, когда сцена близко к экрану. */
+ var started=false;
+ function load(src,cb,err){var s=document.createElement('script');s.src=src;s.onload=cb;s.onerror=err;document.head.appendChild(s)}
+ function start(){
+  if(started)return;started=true;
+  var css=document.createElement('link');css.rel='stylesheet';css.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';document.head.appendChild(css);
+  load('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js',build,function(){mapEl.classList.add('is-failed')});
+ }
+ function build(){
+  var L=window.L;if(!L){mapEl.classList.add('is-failed');return}
+  var map=L.map(mapEl,{center:OFFICE,zoom:16,zoomControl:false,scrollWheelZoom:false,dragging:!L.Browser.mobile,tap:true,attributionControl:true});   // на телефоне карта не перехватывает прокрутку страницы одним пальцем
+  L.control.zoom({position:'topright'}).addTo(map);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}).addTo(map);
+  var icon=L.divIcon({className:'yml__pin',html:'<span class="yml__pin-pulse"></span><span class="yml__pin-dot"><svg viewBox="0 0 36 46" aria-hidden="true"><path d="M18 45S2 29 2 17a16 16 0 0 1 32 0c0 12-16 28-16 28z" fill="#ffb341" stroke="#132034" stroke-width="2"/><circle cx="18" cy="17" r="6.5" fill="#132034"/></svg></span><span class="yml__pin-label">YANK<i>O</i>M</span>',iconSize:[0,0],iconAnchor:[0,0]});
+  L.marker(OFFICE,{icon:icon,title:'Офис YANKOM',keyboard:false}).addTo(map);
+  /* На широком экране карточка контактов закрывает левую часть: сдвигаем центр, чтобы метка была справа от неё. */
+  function shift(){map.setView(OFFICE,16,{animate:false});if(innerWidth>1000){var p=section.querySelector('.yml__panel');map.panBy([-Math.round((p.getBoundingClientRect().right)/2),0],{animate:false})}}
+  shift();addEventListener('resize',shift);
+  /* Колесо мыши всегда листает страницу и не масштабирует карту: масштаб кнопками +/−, двойным щелчком или Ctrl + колесо. */
+  mapEl.addEventListener('wheel',function(e){if(e.ctrlKey){e.preventDefault();if(e.deltaY<0)map.zoomIn();else map.zoomOut()}},{passive:false});
+  setTimeout(function(){map.invalidateSize()},300);
+ }
+ if(window.IntersectionObserver){new IntersectionObserver(function(en){if(en[0].isIntersecting){start()}},{rootMargin:'600px'}).observe(section)}else start();
+})();
+</script>
+
+<!-- YANKOM / Футер: переходы по всем разделам и контакты. Контакты пока без данных: пользователь их ещё не присылал. -->
+<style>
+.ymf{position:relative;z-index:5;background:#050f1b;color:#e3e8f0;font-family:'Montserrat',Arial,sans-serif;border-top:1px solid #e9ae5940;padding:clamp(26px,2.6vw,40px) 5.6% 16px;overflow:hidden}
+.ymf *{box-sizing:border-box}
+.ymf:before{content:'';position:absolute;left:0;right:0;top:-1px;height:1px;background:linear-gradient(90deg,transparent,#ffc469 35%,#ffc469 65%,transparent);opacity:.7;pointer-events:none}
+.ymf__grid{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.2fr) auto;gap:clamp(20px,3vw,48px);align-items:start}
+.ymf__brand{display:block;margin:0 0 10px;color:#fff;text-decoration:none;font:800 clamp(18px,1.4vw,22px)/1 'Montserrat',Arial,sans-serif;letter-spacing:.2em}.ymf__brand i{font-style:normal;color:#ffb341}
+.ymf__lead{margin:0;max-width:360px;color:#9fb0c6;font-size:clamp(12px,.85vw,14px);line-height:1.55}
+.ymf__link{color:#e3e8f0;text-decoration:none;transition:color .2s}.ymf__link:hover,.ymf__link:focus-visible{outline:none;color:#ffc469}
+.ymf__social{display:flex;gap:10px;margin-top:16px}
+.ymf__soc{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid #ffc4695c;background:#ffb3410d;color:#ffc469;transition:background .2s,color .2s,border-color .2s,transform .2s,box-shadow .2s}
+.ymf__soc svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ymf__soc svg.ymf__fill{fill:currentColor;stroke:none}
+.ymf__soc:hover,.ymf__soc:focus-visible{outline:none;background:#ffb341;border-color:#ffb341;color:#132034;transform:translateY(-2px);box-shadow:0 8px 20px #ffb34140}
+.ymf__title{margin:0 0 12px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#d6a76c}
+.ymf__list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ymf__list a{color:#e3e8f0;text-decoration:none;font-size:clamp(13px,.9vw,15px);font-weight:500;transition:color .2s}
+.ymf__list a:hover,.ymf__list a:focus-visible{outline:none;color:#ffc469}
+.ymf__list--cols{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+.ymf__contact{margin:0 0 8px}.ymf__contact dt{margin:0 0 2px;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8395ac}
+.ymf__contact dd{margin:0;color:#e3e8f0;font-size:clamp(13px,.9vw,15px);line-height:1.4}.ymf__contact dd.is-empty{color:#6f8198}
+.ymf__cta{display:inline-flex;align-items:center;height:42px;padding:0 22px;border-radius:999px;background:#ffb341;color:#132034;text-decoration:none;white-space:nowrap;font:700 15px/1 'Montserrat',Arial,sans-serif;letter-spacing:.03em;box-shadow:0 6px 20px #ffb34147;transition:background .2s,transform .2s,box-shadow .2s}
+.ymf__cta:hover,.ymf__cta:focus-visible{outline:none;background:#ffc469;transform:translateY(-1px);box-shadow:0 10px 26px #ffb34166}
+.ymf__bottom{max-width:1600px;margin:clamp(18px,2vw,26px) auto 0;padding-top:14px;border-top:1px solid #8395ac33;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center;color:#6f8198;font-size:12px;line-height:1.5}
+.ymf__up{color:#9fb0c6;text-decoration:none;font-weight:600;letter-spacing:.04em;transition:color .2s}.ymf__up:hover,.ymf__up:focus-visible{outline:none;color:#ffc469}
+@media(max-width:1100px){.ymf__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ymf__brandcol{grid-column:1/-1}}
+@media(max-width:599px){.ymf{padding:28px 22px 18px}.ymf__grid{grid-template-columns:minmax(0,1fr)}.ymf__cta{width:100%;justify-content:center}.ymf__bottom{flex-direction:column;align-items:flex-start}}
+</style>
+<footer class="ymf" id="ymFooter">
+ <div class="ymf__grid">
+  <div class="ymf__brandcol">
+   <a class="ymf__brand" href="#" aria-label="YANKOM — наверх">YANK<i>O</i>M</a>
+   <p class="ymf__lead">Соединяем ваш груз с нужным транспортом. Подбираем фуру и водителя, организуем перевозку и контролируем доставку.</p>
+   <div class="ymf__social" aria-label="Мессенджеры">
+    <a class="ymf__soc" href="#" data-messenger="max" aria-label="Написать в MAX" title="MAX"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-4.7 0-8.5 3.4-8.5 7.6 0 2.4 1.2 4.5 3.2 5.9V21l3.1-1.9c.7.2 1.4.3 2.2.3 4.7 0 8.5-3.4 8.5-7.6S16.7 3.5 12 3.5z"/><path d="M8.6 13.2V9.6l3.4 2.7 3.4-2.7v3.6"/></svg></a>
+    <a class="ymf__soc" href="#" data-messenger="vk" aria-label="Мы во ВКонтакте" title="ВКонтакте"><svg class="ymf__fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.8 17.5C7.2 17.5 4 13.7 3.9 7.4h2.8c.1 4.6 2.1 6.5 3.7 6.9V7.4h2.6v4c1.6-.2 3.3-2 3.9-4h2.6c-.4 2.5-2.2 4.3-3.4 5.1 1.2.6 3.3 2.2 4 5h-2.9c-.6-1.9-2.1-3.4-4.2-3.6v3.6z"/></svg></a>
+    <a class="ymf__soc" href="#" data-messenger="tg" aria-label="Написать в Telegram" title="Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4L3 11.2l6.2 2.3 2.3 6.5 3.2-3.8 4.6 3.3L21 4z"/><path d="M9.2 13.5L21 4"/></svg></a>
+   </div>
+  </div>
+  <nav aria-label="Разделы сайта">
+   <h2 class="ymf__title">Разделы</h2>
+   <ul class="ymf__list ymf__list--cols">
+    <li><a href="#ymCompany">О компании</a></li>
+    <li><a href="#ymScene">Перевозки</a></li>
+    <li><a href="#ymScene4">Автопарк</a></li>
+    <li><a href="#ymPrices">Цены</a></li>
+    <li><a href="#ymScene5">Команда</a></li>
+    <li><a href="#ymGallery">Галерея</a></li>
+    <li><a href="#ymLocation">Расположение</a></li>
+   </ul>
+  </nav>
+  <div>
+   <h2 class="ymf__title">Контакты</h2>
+   <dl>
+    <div class="ymf__contact"><dt>Телефон</dt><dd><a class="ymf__link" href="tel:+79128092203">+7 912 809 22 03</a></dd></div>
+    <div class="ymf__contact"><dt>Почта</dt><dd><a class="ymf__link" href="mailto:89128092203@mail.ru">89128092203@mail.ru</a></dd></div>
+    <div class="ymf__contact"><dt>Адрес</dt><dd><address style="font-style:normal">ОЦ На Гостевой<br>Гостевая улица, 1, подъезд 1, 2 этаж, офис 210<br>пос. Шершни, Центральный район, Челябинск, 454902</address></dd></div>
+   </dl>
+  </div>
+  <div><a class="ymf__cta" href="#ymContact">Связаться</a></div>
+ </div>
+ <div class="ymf__bottom"><span>© 2026 YANKOM</span><a class="ymf__up" href="#">Наверх ↑</a></div>
+</footer>
+<script>
+(function(){
+ 'use strict';
+ var footer=document.getElementById('ymFooter');if(!footer)return;
+ /* Ссылки на мессенджеры: адреса задаются на странице как window.YM_LINKS={max:"https://max.ru/…",tg:"https://t.me/…"}; пока адрес не указан, значок ничего не открывает. */
+ [].forEach.call(footer.querySelectorAll('[data-messenger]'),function(a){
+  var url=(window.YM_LINKS||{})[a.getAttribute('data-messenger')];
+  if(url){a.href=url;a.target='_blank';a.rel='noopener noreferrer'}
+  else{a.setAttribute('aria-disabled','true');a.title+=' (ссылка не указана)';a.addEventListener('click',function(e){e.preventDefault()})}
+ });
+ [].forEach.call(footer.querySelectorAll('a[href^="#"]:not([data-messenger])'),function(a){a.addEventListener('click',function(e){
+  var id=a.getAttribute('href'),handled=window.ymNavTo?window.ymNavTo(id):false;
+  if(handled){e.preventDefault();return}
+  var el=id.length>1&&document.querySelector(id);
+  if(id==='#'){e.preventDefault();scrollTo({top:0,behavior:'smooth'})}
+  else if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'})}
+  else if(id.length>1){e.preventDefault()}
+ })});
+})();
+</script>
+
+<!-- YANKOM / Форма заявки: окно по кнопке «Связаться». Поля: имя, телефон, направление, почта, «я не робот». Отправка на адрес из window.YM_FORM_ENDPOINT (сервис-посредник шлёт в MAX и на почту, см. tools/form-relay). -->
+<style>
+.ymq{--ymq-line:#8395ac40;padding:0;border:0;background:transparent;color:#e3e8f0;font-family:'Montserrat',Arial,sans-serif;max-width:100vw;max-height:100svh;overflow:visible}
+.ymq::backdrop{background:rgba(3,10,18,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.ymq *{box-sizing:border-box}
+.ymq__card{position:relative;width:min(480px,calc(100vw - 32px));max-height:calc(100svh - 32px);overflow:auto;margin:auto;padding:clamp(24px,3vw,36px);border-radius:22px;background:linear-gradient(160deg,#0b1a2d,#071321);border:1px solid #e9ae5950;box-shadow:0 30px 80px #000a,inset 0 1px 0 #ffffff12}
+.ymq__close{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--ymq-line);background:transparent;color:#9fb0c6;font-size:22px;line-height:1;cursor:pointer;transition:color .2s,border-color .2s}
+.ymq__close:hover,.ymq__close:focus-visible{outline:none;color:#ffc469;border-color:#ffc46980}
+.ymq__eyebrow{margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#d6a76c}
+.ymq__title{margin:0 0 6px;font-size:clamp(22px,2.2vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.ymq__lead{margin:0 0 22px;font-size:14px;line-height:1.55;color:#9fb0c6}
+.ymq__field{display:block;margin:0 0 14px}
+.ymq__row{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media(max-width:420px){.ymq__row{grid-template-columns:1fr}}
+.ymq__label{display:block;margin:0 0 6px;font-size:12px;font-weight:600;letter-spacing:.04em;color:#c4d0e0}
+.ymq__input{display:block;width:100%;height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--ymq-line);background:#0c1a2d;color:#f3f6fb;font:500 15px/1 'Montserrat',Arial,sans-serif;transition:border-color .2s,box-shadow .2s}
+.ymq__input::placeholder{color:#6f8198}
+.ymq__input:focus{outline:none;border-color:#ffc469;box-shadow:0 0 0 3px #ffb34126}
+.ymq__input[aria-invalid=true]{border-color:#ff7b6b;box-shadow:0 0 0 3px #ff7b6b22}
+.ymq__error{display:none;margin:5px 0 0;font-size:12px;color:#ff9a8d}
+.ymq__field.is-bad .ymq__error{display:block}
+.ymq__robot{display:flex;align-items:center;gap:12px;margin:4px 0 16px;padding:12px 14px;border-radius:12px;border:1px solid var(--ymq-line);background:#0c1a2d;cursor:pointer;font-size:14px;color:#e3e8f0}
+.ymq__robot input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:0;border-radius:6px;border:1.5px solid #8395ac;background:transparent;cursor:pointer;display:grid;place-items:center;transition:border-color .2s,background .2s}
+.ymq__robot input:checked{background:#ffb341;border-color:#ffb341}
+.ymq__robot input:checked:after{content:'';width:6px;height:11px;border:solid #132034;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.ymq__robot input:focus-visible{outline:2px solid #ffc469;outline-offset:3px}
+.ymq__robot.is-bad{border-color:#ff7b6b}
+.ymq__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.ymq__submit{display:flex;align-items:center;justify-content:center;width:100%;height:50px;border:0;border-radius:999px;background:#ffb341;color:#132034;font:700 16px/1 'Montserrat',Arial,sans-serif;letter-spacing:.03em;cursor:pointer;box-shadow:0 6px 20px #ffb34147;transition:background .2s,transform .2s,opacity .2s}
+.ymq__submit:hover,.ymq__submit:focus-visible{outline:none;background:#ffc469;transform:translateY(-1px)}
+.ymq__submit[disabled]{opacity:.6;cursor:default;transform:none}
+.ymq__status{margin:12px 0 0;min-height:18px;font-size:13px;line-height:1.5;color:#9fb0c6}
+.ymq__status.is-bad{color:#ff9a8d}
+.ymq__sign{margin:6px 0 0;text-align:center;font:800 14px/1 'Montserrat',Arial,sans-serif;letter-spacing:.2em;padding-left:.2em;color:#fff}.ymq__sign i{font-style:normal;color:#ffb341}
+.ymq__done{display:none;text-align:center;padding:18px 0 6px}
+.ymq__done b{display:block;margin:0 0 8px;font-size:22px;font-weight:600}.ymq__done p{margin:0 0 20px;color:#9fb0c6;font-size:14px;line-height:1.55}
+.ymq__tick{display:grid;place-items:center;width:56px;height:56px;margin:0 auto 16px;border-radius:50%;border:1.5px solid #ffc469;color:#ffc469}.ymq__tick svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ymq.is-done .ymq__formwrap{display:none}.ymq.is-done .ymq__done{display:block}
+.ymq__ghost{display:inline-flex;align-items:center;height:44px;padding:0 24px;border-radius:999px;border:1px solid #ffc46970;background:transparent;color:#ffc469;font:700 14px/1 'Montserrat',Arial,sans-serif;cursor:pointer}
+@media(prefers-reduced-motion:no-preference){.ymq[open] .ymq__card{animation:ymq-in .28s cubic-bezier(.2,.9,.3,1)}@keyframes ymq-in{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}}
+</style>
+<dialog class="ymq" id="ymqDialog" aria-labelledby="ymqTitle">
+ <div class="ymq__card">
+  <button class="ymq__close" type="button" id="ymqClose" aria-label="Закрыть">×</button>
+  <div class="ymq__formwrap">
+   <p class="ymq__eyebrow">Заявка</p>
+   <h2 class="ymq__title" id="ymqTitle">Рассчитаем вашу перевозку</h2>
+   <p class="ymq__lead">Укажите маршрут и груз, мы свяжемся с вами.</p>
+   <form id="ymqForm" novalidate autocomplete="on">
+    <label class="ymq__field" data-field="name"><span class="ymq__label">Имя</span><input class="ymq__input" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" maxlength="80"><span class="ymq__error">Укажите имя</span></label>
+    <label class="ymq__field" data-field="phone"><span class="ymq__label">Телефон</span><input class="ymq__input" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="24"><span class="ymq__error">Укажите телефон полностью</span></label>
+    <div class="ymq__row">
+     <label class="ymq__field" data-field="from"><span class="ymq__label">Откуда</span><input class="ymq__input" name="from" type="text" placeholder="Город отправления" maxlength="80"><span class="ymq__error">Укажите, откуда везти</span></label>
+     <label class="ymq__field" data-field="to"><span class="ymq__label">Куда</span><input class="ymq__input" name="to" type="text" placeholder="Город назначения" maxlength="80"><span class="ymq__error">Укажите, куда везти</span></label>
+    </div>
+    <label class="ymq__field" data-field="cargo"><span class="ymq__label">Какой груз</span><input class="ymq__input" name="cargo" type="text" placeholder="Например: паллеты, оборудование, продукты" maxlength="160"><span class="ymq__error">Опишите груз</span></label>
+    <label class="ymq__field" data-field="email"><span class="ymq__label">Почта</span><input class="ymq__input" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@company.ru" maxlength="120"><span class="ymq__error">Укажите корректную почту</span></label>
+    <input class="ymq__hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="ymq__robot" id="ymqRobot"><input type="checkbox" name="human" id="ymqHuman"><span>Я не робот</span></label>
+    <button class="ymq__submit" type="submit" id="ymqSubmit">Отправить заявку</button>
+    <p class="ymq__status" id="ymqStatus" role="status" aria-live="polite"></p>
+    <p class="ymq__sign" aria-label="YANKOM">YANK<i>O</i>M</p>
+   </form>
+  </div>
+  <div class="ymq__done" id="ymqDone">
+   <div class="ymq__tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+   <b>Заявка отправлена</b>
+   <p id="ymqDoneText">Мы свяжемся с вами в ближайшее время.</p>
+   <button class="ymq__ghost" type="button" id="ymqDoneClose">Закрыть</button>
+  </div>
+ </div>
+</dialog>
+<script>
+(function(){
+ 'use strict';
+ var dialog=document.getElementById('ymqDialog'),form=document.getElementById('ymqForm');
+ if(!dialog||!form)return;
+ var status=document.getElementById('ymqStatus'),submit=document.getElementById('ymqSubmit'),robot=document.getElementById('ymqRobot'),human=document.getElementById('ymqHuman'),doneText=document.getElementById('ymqDoneText');
+ var openedAt=0,sending=false,lastFocus=null;
+ function digits(v){return String(v||'').replace(/\D/g,'')}
+ var rules={
+  name:function(v){return v.trim().length>=2},
+  phone:function(v){var d=digits(v);return d.length>=10&&d.length<=15},
+  from:function(v){return v.trim().length>=2},
+  to:function(v){return v.trim().length>=2},
+  cargo:function(v){return v.trim().length>=2},
+  email:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())}
+ };
+ function mark(name,bad){var wrap=form.querySelector('[data-field="'+name+'"]'),input=form.elements[name];wrap.classList.toggle('is-bad',bad);input.setAttribute('aria-invalid',bad?'true':'false')}
+ function validate(){
+  var ok=true,first=null;
+  Object.keys(rules).forEach(function(name){var bad=!rules[name](form.elements[name].value);mark(name,bad);if(bad){ok=false;first=first||form.elements[name]}});
+  robot.classList.toggle('is-bad',!human.checked);if(!human.checked){ok=false;first=first||human}
+  if(first)first.focus();
+  return ok;
+ }
+ Object.keys(rules).forEach(function(name){form.elements[name].addEventListener('input',function(){mark(name,false)})});
+ human.addEventListener('change',function(){robot.classList.remove('is-bad')});
+ function setStatus(text,bad){status.textContent=text||'';status.classList.toggle('is-bad',!!bad)}
+ function open(){
+  lastFocus=document.activeElement;openedAt=Date.now();
+  dialog.classList.remove('is-done');setStatus('');
+  if(!dialog.open)dialog.showModal();
+  setTimeout(function(){form.elements.name.focus()},30);
+ }
+ function close(){if(dialog.open)dialog.close();if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+ document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href="#ymContact"]');
+  if(!a)return;
+  e.preventDefault();e.stopImmediatePropagation();open();
+ },true);
+ document.getElementById('ymqClose').addEventListener('click',close);
+ document.getElementById('ymqDoneClose').addEventListener('click',close);
+ dialog.addEventListener('click',function(e){if(e.target===dialog)close()});
+ form.addEventListener('submit',function(e){
+  e.preventDefault();
+  if(sending||!validate())return;
+  // Защита от ботов: скрытое поле-приманка и слишком быстрая отправка (менее 2 с после открытия окна)
+  if(form.elements.website.value||Date.now()-openedAt<2000){finish(true);return}
+  var payload={name:form.elements.name.value.trim(),phone:form.elements.phone.value.trim(),from:form.elements.from.value.trim(),to:form.elements.to.value.trim(),cargo:form.elements.cargo.value.trim(),email:form.elements.email.value.trim(),page:location.href,sent:new Date().toISOString()};
+  var endpoint=window.YM_FORM_ENDPOINT;
+  sending=true;submit.disabled=true;setStatus('Отправляем…');
+  if(!endpoint){
+   // Приём ещё не подключён: показываем результат, но данные никуда не уходят.
+   console.info('[YANKOM form] endpoint не задан, данные не отправлены',payload);
+   setTimeout(function(){finish(false,true)},500);return;
+  }
+  fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+   .then(function(r){if(!r.ok)throw new Error('http '+r.status);finish(false)})
+   .catch(function(){sending=false;submit.disabled=false;setStatus('Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз.',true)});
+ });
+ function finish(silent,demo){
+  sending=false;submit.disabled=false;form.reset();
+  doneText.textContent=demo?'Демо-режим: приём заявок ещё не подключён, данные никуда не отправлены.':'Мы свяжемся с вами в ближайшее время.';
+  dialog.classList.add('is-done');
+  var btn=document.getElementById('ymqDoneClose');if(btn)btn.focus();
+ }
+})();
+</script>
+
+<!-- YANKOM / Шкала прогресса прокрутки справа: маркер на каждую сцену, янтарная заливка показывает прохождение страницы, подпись при наведении, переход по клику. Определяет текущую сцену и сообщает меню (событие ym:scene). Список сцен scenes в скрипте. -->
+<style>
+.ymr{position:fixed;right:clamp(8px,1.3vw,26px);top:50%;transform:translateY(-50%);z-index:9980;height:min(56svh,440px);width:24px;pointer-events:none;font-family:'Montserrat',Arial,sans-serif;opacity:0;transition:opacity .5s ease}
+.ymr.on{opacity:1}
+.ymr__track{position:absolute;left:11px;top:0;bottom:0;width:2px;border-radius:2px;background:rgba(131,149,172,.3)}
+.ymr__fill{position:absolute;left:11px;top:0;width:2px;height:0;border-radius:2px;background:linear-gradient(180deg,#ffc469,#ffb341);box-shadow:0 0 10px rgba(255,179,65,.55)}
+.ymr__dot{position:absolute;left:0;width:24px;height:24px;margin-top:-12px;padding:0;border:0;background:transparent;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
+.ymr__dot:before{content:'';position:absolute;left:8px;top:8px;width:8px;height:8px;border-radius:50%;background:#14263a;border:1.5px solid #8395ac;transition:transform .25s,background .25s,border-color .25s,box-shadow .25s}
+.ymr__dot.is-passed:before{border-color:#ffc469;background:#ffc469}
+.ymr__dot.is-active:before{transform:scale(1.5);border-color:#ffb341;background:#ffb341;box-shadow:0 0 0 4px rgba(255,179,65,.22)}
+.ymr__dot:focus-visible{outline:none}.ymr__dot:focus-visible:before{box-shadow:0 0 0 3px #ffc469}
+.ymr__label{position:absolute;right:30px;top:50%;transform:translate(6px,-50%);white-space:nowrap;padding:6px 11px;border-radius:999px;background:rgba(9,22,38,.94);border:1px solid rgba(255,196,105,.4);color:#f3f6fb;font:600 12px/1 'Montserrat',Arial,sans-serif;letter-spacing:.03em;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.ymr__dot:hover .ymr__label,.ymr__dot:focus-visible .ymr__label{opacity:1;transform:translate(0,-50%)}
+@media(max-width:767px){.ymr{right:5px;height:40svh;width:16px}.ymr__track,.ymr__fill{left:7px}.ymr__dot{width:16px;height:20px;margin-top:-10px}.ymr__dot:before{left:4px;top:6px;width:7px;height:7px}.ymr__label{display:none}}
+@media(prefers-reduced-motion:reduce){.ymr,.ymr__dot:before,.ymr__label{transition:none}}
+</style>
+<nav class="ymr" id="ymRail" aria-label="Прогресс по сценам страницы">
+ <span class="ymr__track" aria-hidden="true"></span><span class="ymr__fill" id="ymrFill" aria-hidden="true"></span>
+</nav>
+<script>
+(function(){
+ 'use strict';
+ var rail=document.getElementById('ymRail'),fill=document.getElementById('ymrFill');
+ if(!rail)return;
+ /* id сцены, название для подписи и точка начала сцены на странице. Сцены 3 и 4 на десктопе выезжают поверх предыдущей, поэтому их начало считается от середины выезда. */
+ var scenes=[
+  {id:'ymScene1',name:'Начало'},{id:'ymCompany',name:'О компании'},{id:'ymScene',name:'Перевозки',slide:true},{id:'ymScene4',name:'Автопарк',slide:true,pin:'ym4Pin'},
+  {id:'ymPrices',name:'Цены'},{id:'ymScene5',name:'Команда'},{id:'ymGallery',name:'Галерея'},{id:'ymLocation',name:'Расположение'}
+ ].filter(function(s){return document.getElementById(s.id)});
+ var N=scenes.length;if(N<2)return;
+ var overlay=matchMedia('(min-width:1000px) and (min-aspect-ratio:5/4) and (prefers-reduced-motion:no-preference)');
+ var dots=scenes.map(function(s,i){
+  var b=document.createElement('button');b.type='button';b.className='ymr__dot';b.style.top=(i/(N-1)*100)+'%';b.setAttribute('aria-label','Перейти к сцене: '+s.name);
+  var l=document.createElement('span');l.className='ymr__label';l.textContent=s.name;b.appendChild(l);
+  b.addEventListener('click',function(){var h='#'+s.id;if(window.ymNavTo)window.ymNavTo(h);else document.getElementById(s.id).scrollIntoView({behavior:'smooth'})});
+  rail.appendChild(b);return b;
+ });
+ var starts=[],last=-1,raf=0;
+ function docTop(el){return el.getBoundingClientRect().top+scrollY}
+ function measure(){
+  var vh=innerHeight;
+  starts=scenes.map(function(s,i){
+   if(i===0)return 0;
+   var el=document.getElementById(s.pin||s.id),top=docTop(el);
+   return (s.slide&&overlay.matches)?top+vh*.4:top-vh*.35;
+  });
+  for(var i=1;i<N;i++)if(starts[i]<=starts[i-1])starts[i]=starts[i-1]+1;
+ }
+ function update(){
+  raf=0;
+  var y=scrollY,idx=0;
+  for(var i=0;i<N;i++)if(y>=starts[i])idx=i;
+  var from=starts[idx],to=idx<N-1?starts[idx+1]:Math.max(from+1,document.documentElement.scrollHeight-innerHeight);
+  var f=Math.max(0,Math.min(1,(y-from)/Math.max(1,to-from)));
+  fill.style.height=((idx<N-1?idx+f:N-1)/(N-1)*100).toFixed(2)+'%';
+  if(idx!==last){
+   last=idx;dots.forEach(function(d,i){d.classList.toggle('is-active',i===idx);d.classList.toggle('is-passed',i<idx)});
+   window.dispatchEvent(new CustomEvent('ym:scene',{detail:{id:scenes[idx].id,index:idx}}));
+  }
+ }
+ function req(){if(!raf)raf=requestAnimationFrame(update)}
+ function remeasure(){measure();req()}
+ addEventListener('scroll',req,{passive:true});addEventListener('resize',remeasure);
+ if(window.ResizeObserver)new ResizeObserver(remeasure).observe(document.body);
+ addEventListener('load',remeasure);
+ measure();update();setTimeout(function(){rail.classList.add('on')},900);
+})();
+</script>
+<script>var view=new URLSearchParams(location.search).get("view"),sceneIds={"scene1":"ymScene1","scene2":"ymCompany","scene3":"ymScene","scene4":"ymScene4","scene5":"ymScene5","scene6":"ymPrices","scene7":"ymGallery"};if(sceneIds[view]){addEventListener("load",function(){var s=document.getElementById(sceneIds[view]);if(s){var desktop=!matchMedia("(max-width:999px), (max-aspect-ratio:5/4)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches,anchor=view==="scene4"?(document.getElementById("ym4Pin")||s):s,top=anchor.getBoundingClientRect().top+scrollY;if(desktop&&(view==="scene3"||view==="scene4"))top+=innerHeight*.8;scrollTo(0,top)}})}</script></body></html>
