@@ -46,8 +46,7 @@
 <div class="ymn" id="ymNav" role="navigation" aria-label="Основное меню">
   <div class="ymn__panel" id="ymnPanel">
     <a class="ymn__link" href="#ymCompany">О компании</a>
-    <a class="ymn__link" href="#ymScene">Перевозки</a>
-    <a class="ymn__link" href="#ymScene4">Автопарк</a>
+    <a class="ymn__link" href="#ymScene" data-scenes="ymScene ymScene4">С чем мы работаем</a>
     <a class="ymn__link" href="#ymPrices">Цены</a>
     <a class="ymn__link" href="#ymScene5">Команда</a>
     <a class="ymn__link" href="#ymGallery">Галерея</a>
@@ -63,8 +62,7 @@
     <a class="ymn__brand" href="#" aria-label="YANKOM — наверх">YANK<i>O</i>M</a>
     <span class="ymn__sep" aria-hidden="true"></span>
     <a class="ymn__item" href="#ymCompany">О компании</a>
-    <a class="ymn__item" href="#ymScene">Перевозки</a>
-    <a class="ymn__item" href="#ymScene4">Автопарк</a>
+    <a class="ymn__item" href="#ymScene" data-scenes="ymScene ymScene4">С чем мы работаем</a>
     <a class="ymn__item" href="#ymPrices">Цены</a>
     <a class="ymn__item" href="#ymScene5">Команда</a>
     <a class="ymn__item" href="#ymGallery">Галерея</a>
@@ -115,7 +113,7 @@
   });
   window.addEventListener('ym:scene',function(e){
     var id='#'+(e.detail&&e.detail.id||'');
-    [].forEach.call(nav.querySelectorAll('.ymn__item,.ymn__link'),function(a){var on=a.getAttribute('href')===id;a.classList.toggle('is-current',on);if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+    [].forEach.call(nav.querySelectorAll('.ymn__item,.ymn__link'),function(a){var on=a.getAttribute('href')===id||(a.getAttribute('data-scenes')||'').split(' ').indexOf(id.slice(1))>=0;a.classList.toggle('is-current',on);if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
   });
   function setOpen(on){panel.classList.toggle('open',on);burger.setAttribute('aria-expanded',on?'true':'false')}
   burger.addEventListener('click',function(e){e.stopPropagation();setOpen(!panel.classList.contains('open'))});
@@ -574,7 +572,7 @@
 .ym4__bay[aria-pressed=true] .ym4__number{color:#ffc36e}
 .ym4__bay-label{display:block;width:min(94%,310px);padding:10px 8px;background:#091321bd;border:1px solid #9aa5b32b;border-radius:5px;font-size:clamp(11px,1.25vw,21px);line-height:1.3;text-align:center;font-weight:500;transition:color .25s,border-color .25s,background .25s}
 .ym4__bay[aria-pressed=true] .ym4__bay-label{color:#ffd28e;border-color:#ffc36e88;background:#18202ce8}
-.ym4__details{position:relative;z-index:2;display:grid;grid-template-columns:minmax(190px,26%) minmax(0,1fr);gap:16px 36px;margin:calc(-1 * clamp(85px,7.6vw,145px)) 5.6% 0;padding:18px 0 0;border-top:1px solid #d1b17d50;min-height:110px;background:linear-gradient(180deg,#07132100,#07132150)}
+.ym4__details{position:relative;z-index:2;display:grid;grid-template-columns:minmax(190px,26%) minmax(0,1fr);gap:16px 36px;margin:calc(-1 * clamp(85px,7.6vw,145px)) 5.6% 0;padding:18px 0 0;border-top:1px solid #d1b17d50;min-height:110px;background:none}
 .ym4__detail-heading{margin:0}.ym4__detail-heading span{display:block;font-size:9px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:#b2bdcc;margin-bottom:10px}.ym4__detail-heading strong{display:block;font-weight:500;font-size:clamp(18px,1.65vw,29px);line-height:1.25;letter-spacing:-.02em}
 .ym4__types{display:flex;flex-wrap:wrap;align-content:start;align-items:start;gap:8px;list-style:none;margin:0;padding:0}.ym4__types li{padding:9px 13px;border:1px solid #a7b3c336;border-radius:999px;background:#0c192bd9;color:#e0e7ef;font-size:clamp(11px,.85vw,14px);line-height:1.35}
 .ym4__mobile-hint{display:none}
@@ -597,19 +595,14 @@
  .ym4__types{gap:8px}.ym4__types li{font-size:12px;padding:9px 12px}
 }
 @media(prefers-reduced-motion:reduce){.ym4__image,.ym4__bay:before,.ym4__number,.ym4__bay-label{transition:none}}
-/* Фуры без обводки и выделения: на десктопе рамки боксов убраны. Фары погашены, пока на фуру не нажмут. */
+/* Фуры без обводки и выделения: на десктопе рамки боксов убраны. Фары выключены; эффекты света отключены по решению пользователя. */
 .ym4__bay:before,.ym4__bay[aria-pressed=true]:before,.ym4__bay:hover:before{display:none}
-.ym4__lamps{position:absolute;left:0;top:0;width:100%;height:auto;aspect-ratio:1672/941;pointer-events:none;overflow:visible}
-.ym4__truck-dim,.ym4__truck-glow{transition:opacity .35s ease}
-.ym4__truck-glow{opacity:0;mix-blend-mode:screen}
-.ym4__truck.is-peek .ym4__truck-dim{opacity:.45}.ym4__truck.is-peek .ym4__truck-glow{opacity:.4}
-.ym4__truck.is-lit .ym4__truck-dim{opacity:0}.ym4__truck.is-lit .ym4__truck-glow{opacity:1}
-@media(prefers-reduced-motion:reduce){.ym4__truck-dim,.ym4__truck-glow{transition:none}}
+.ym4__lit{opacity:0;pointer-events:none;transition:opacity .35s ease,transform .55s cubic-bezier(.22,.7,.24,1);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+@media(prefers-reduced-motion:reduce){.ym4__lit{transition:none}}
 /* Меньше пустой стены над боксами: верх панорамы обрезан на 9 %, заголовок поднят, боксы сдвинуты соответственно. */
 @media(min-width:1101px){
 .ym4__canvas{aspect-ratio:1672/856}
 .ym4__image{position:absolute;left:0;bottom:0}
-.ym4__lamps{top:auto;bottom:0}
 .ym4__bays{inset:24.2% 0 15.4%}
 .ym4__heading{top:calc(var(--ym4-nav-space) - 4px)}
 .ym4__eyebrow{margin-bottom:8px}
@@ -633,7 +626,7 @@
 <section class="ym4" id="ymScene4" aria-labelledby="ym4Heading">
  <header class="ym4__heading"><p class="ym4__eyebrow">Типы прицепов</p><h2 id="ym4Heading">Разные прицепы. Один подход.</h2></header>
  <div class="ym4__canvas">
-  <div class="ym4__panorama" id="ym4Panorama"><img class="ym4__image" id="ym4Image" width="1672" height="941" loading="lazy" decoding="async" alt="Иллюстрация четырёх типов прицепов в ангаре: тентованный, рефрижератор, бортовой и низкорамный с техникой"><svg class="ym4__lamps" id="ym4Lamps" viewBox="0 0 1672 941" preserveAspectRatio="none" aria-hidden="true" focusable="false"></svg></div>
+  <div class="ym4__panorama" id="ym4Panorama"><img class="ym4__image" id="ym4Image" width="1672" height="941" loading="lazy" decoding="async" alt="Иллюстрация четырёх типов прицепов в ангаре: тентованный, рефрижератор, бортовой и низкорамный с техникой"></div>
   <div class="ym4__bays" role="group" aria-label="Выберите группу прицепов">
    <button class="ym4__bay" type="button" data-ym4-bay="0" aria-pressed="true" aria-controls="ym4Details"><span class="ym4__number" aria-hidden="true">01</span><span class="ym4__bay-label">Закрытые</span></button>
    <button class="ym4__bay" type="button" data-ym4-bay="1" aria-pressed="false" aria-controls="ym4Details"><span class="ym4__number" aria-hidden="true">02</span><span class="ym4__bay-label">Рефрижераторы</span></button>
@@ -658,31 +651,22 @@
   {name:'Открытые прицепы',types:['Бортовой','Открытый контейнер','Самосвал','Шаланда','Площадка без бортов']},
   {name:'Низкорамные и специальные',types:['Низкорамный','Трал','Низкорамная платформа','Телескопический','Балковоз (негабарит)']}
  ];
- image.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'scene4-hangar-clean-v1.png';
- /* Фары: пока на фуру не нажали, они «выключены» (светлая линза затемнена и обесцвечена), по клику загораются тёплым светом. Координаты ламп даны в пикселях исходного кадра 1672×941. */
- var lampSvg=document.getElementById('ym4Lamps'),NS='http://www.w3.org/2000/svg',trucks=[],lit=-1;
- var lamps=[[[95,637],[198,636]],[[499,641],[598,641]],[[882,641],[971,641]],[[1282,643],[1377,643]]];
- function svgEl(name,attrs,parent){var el=document.createElementNS(NS,name);Object.keys(attrs||{}).forEach(function(k){el.setAttribute(k,attrs[k])});if(parent)parent.appendChild(el);return el}
- if(lampSvg){
-  var defs=svgEl('defs',{},lampSvg),filter=svgEl('filter',{id:'ym4LampOff',x:'0',y:'0',width:'100%',height:'100%'},defs);
-  svgEl('feColorMatrix',{type:'saturate',values:'.1'},filter);
-  var transfer=svgEl('feComponentTransfer',{},filter);['feFuncR','feFuncG','feFuncB'].forEach(function(f){svgEl(f,{type:'linear',slope:'.55'},transfer)});
-  var glowGrad=svgEl('radialGradient',{id:'ym4LampGlow'},defs);
-  svgEl('stop',{offset:'0','stop-color':'#fff1c9','stop-opacity':'.95'},glowGrad);svgEl('stop',{offset:'.35','stop-color':'#ffc965','stop-opacity':'.55'},glowGrad);svgEl('stop',{offset:'1','stop-color':'#ffb341','stop-opacity':'0'},glowGrad);
-  lamps.forEach(function(pair,i){
-   var clip=svgEl('clipPath',{id:'ym4LampClip'+i},defs);pair.forEach(function(p){svgEl('circle',{cx:p[0],cy:p[1],r:9},clip)});
-   var g=svgEl('g',{'class':'ym4__truck'},lampSvg);
-   var dim=svgEl('g',{'class':'ym4__truck-dim','clip-path':'url(#ym4LampClip'+i+')'},g);
-   var img=svgEl('image',{x:0,y:0,width:1672,height:941,preserveAspectRatio:'none',filter:'url(#ym4LampOff)'},dim);img.setAttribute('href',image.src);img.setAttributeNS('http://www.w3.org/1999/xlink','href',image.src);
-   var glow=svgEl('g',{'class':'ym4__truck-glow'},g);pair.forEach(function(p){svgEl('circle',{cx:p[0],cy:p[1],r:38,fill:'url(#ym4LampGlow)'},glow)});
-   trucks.push(g);
-  });
+ image.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'scene4-hangar-lights-off-v3.png';
+ /* Фары: пока на фуру не наведены, они выключены (основная картинка). При наведении (на телефоне при выборе категории) поверх проявляется исходный кадр с горящими фарами, но только в области фар этой фуры: слой лежит в том же положении, что и основной, а маска задана в процентах его размера. Координаты ламп в пикселях кадра 1672×941. */
+ var litImage=document.createElement('img');litImage.className='ym4__image ym4__lit';litImage.alt='';litImage.setAttribute('aria-hidden','true');litImage.decoding='async';litImage.src=(window.YM_ASSETS||'https://qw3rez.github.io/landing-builder-assets/yankom/')+'scene4-hangar-clean-v1.png';
+ var lampPairs=[[[95,637],[198,636]],[[499,641],[598,641]],[[882,641],[971,641]],[[1282,643],[1377,643]]];
+ litImage.style.setProperty('-webkit-mask-image','none');
+ var masks=lampPairs.map(function(pair){return pair.map(function(p){return 'radial-gradient(ellipse 2% 3% at '+(p[0]/1672*100).toFixed(2)+'% '+(p[1]/941*100).toFixed(2)+'%,#000 45%,transparent 100%)'}).join(',')});
+ section.style.setProperty('--ym4-lit-mask',masks[0]);
+ panorama.appendChild(litImage);
+ var litIndex=-1,touchOnly=matchMedia('(hover:none)');
+ function setLit(i){
+  if(i===litIndex)return;litIndex=i;
+  if(i<0){litImage.style.opacity='0';return}
+  var m=masks[i];litImage.style.webkitMaskImage=m;litImage.style.maskImage=m;litImage.style.opacity='1';
  }
- function setLit(index){lit=index;trucks.forEach(function(g,i){g.classList.toggle('is-lit',i===index)})}
- function peek(index,on){trucks.forEach(function(g,i){g.classList.toggle('is-peek',on&&i===index&&i!==lit)})}
  function select(index,fromUser){
   if(index<0||index>=groups.length)return;
-  if(fromUser)setLit(lit===index&&active===index?-1:index);
   active=index;section.style.setProperty('--ym4-active',String(index));
   buttons.forEach(function(button,i){button.setAttribute('aria-pressed',i===index?'true':'false')});
   category.textContent=groups[index].name;
@@ -690,9 +674,11 @@
   types.replaceChildren.apply(types,items);
  }
  buttons.forEach(function(button,index){
-  button.addEventListener('click',function(){select(index,true)});
-  button.addEventListener('pointerenter',function(e){if(e.pointerType!=='touch')peek(index,true)});
-  button.addEventListener('pointerleave',function(){peek(index,false)});
+  button.addEventListener('click',function(){select(index,true);if(touchOnly.matches)setLit(index)});
+  button.addEventListener('pointerenter',function(e){if(e.pointerType!=='touch')setLit(index)});
+  button.addEventListener('pointerleave',function(e){if(e.pointerType!=='touch')setLit(-1)});
+  button.addEventListener('focus',function(){setLit(index)});
+  button.addEventListener('blur',function(){setLit(-1)});
   button.addEventListener('keydown',function(event){
    var next=event.key==='ArrowRight'?(index+1)%4:event.key==='ArrowLeft'?(index+3)%4:event.key==='Home'?0:event.key==='End'?3:-1;
    if(next<0)return;event.preventDefault();select(next,true);buttons[next].focus();
@@ -843,7 +829,7 @@
 @media(max-width:767px){.ym3{padding-top:90px}.ym3__layout{display:block;padding:0 22px 40px}.ym3__model{height:auto;min-height:0;aspect-ratio:1}.ym3__head{left:0;top:0}.ym3__head h2{font-size:28px;padding:0 9px 8px 0}.ym3__eyebrow{font-size:8px;margin-bottom:10px}.ym3__head:after{width:33px;height:2px;margin-top:9px}.ym3__hotspot span{width:29px;height:29px;font-size:11px;left:-10px;top:-9px}.ym3__hotspot span:after{left:25px;top:23px;width:13px}.ym3__profile{border-left:0;border-top:1px solid #c69e6055;margin-top:20px;padding:26px 0 0;display:grid;grid-template-columns:112px minmax(0,1fr);column-gap:20px;align-items:start}.ym3__profile-label{grid-column:1/-1;font-size:19px;margin-bottom:20px}.ym3__profile-label:after{margin:13px 0 0;height:2px;width:35px}.ym3__portrait{grid-column:1;grid-row:2/5;width:112px;aspect-ratio:1;margin:0;border-radius:8px}.ym3__name{grid-column:2;font-size:29px;margin-bottom:8px}.ym3__position{grid-column:2;font-size:14px;margin:0 0 16px}.ym3__tasks{grid-column:1/-1;font-size:14px;gap:17px;margin-top:24px}.ym3__tasks svg{width:24px;height:24px}.ym3__demo{grid-column:1/-1;font-size:10px;margin-top:24px;padding-top:18px}.ym3__selector{grid-column:2;grid-row:4;margin-top:0;gap:7px}.ym3__select{width:31px;height:31px}}
 @media(prefers-reduced-motion:reduce){.ym3__hotspot span{transition:none}}
 
-.ym3{z-index:4;margin-top:0;border-top:1px solid #8291a32c}
+.ym3{z-index:4;margin-top:0;border-top:0}
 
 /* Место под фиксированное меню входит в высоту экрана, а не добавляется к ней. */
 .ym3{--ym3-nav-clearance:96px;box-sizing:border-box;padding-top:var(--ym3-nav-clearance);scroll-margin-top:0}
@@ -978,7 +964,7 @@
 
 <!-- YANKOM / Сцена 07. Галерея: три ряда фото отгрузок, при прокрутке соседние ряды едут в разные стороны (первый и третий вправо, второй влево). 19 фото пользователя: assets/gallery/ship-01..19.jpg; список cards в скрипте. -->
 <style>
-.ymg{--ymg-nav:96px;--ymg-w:clamp(230px,30vw,440px);--ymg-gap:clamp(20px,3vw,48px);--ymg-t:400px;position:relative;z-index:4;min-height:100svh;background:#071321;color:#f3f6fb;font-family:'Montserrat',Arial,sans-serif;border-top:1px solid #8291a32c;overflow:hidden;padding-bottom:clamp(50px,6vw,100px)}
+.ymg{--ymg-nav:96px;--ymg-w:clamp(230px,30vw,440px);--ymg-gap:clamp(20px,3vw,48px);--ymg-t:400px;position:relative;z-index:4;min-height:100svh;background:#071321;color:#f3f6fb;font-family:'Montserrat',Arial,sans-serif;overflow:hidden;padding-bottom:clamp(50px,6vw,100px)}
 .ymg *{box-sizing:border-box}
 .ymg__head{max-width:1280px;margin:0 auto;padding:calc(var(--ymg-nav) + clamp(24px,3vw,56px)) 5.6% clamp(34px,4vw,64px)}
 .ymg__eyebrow{margin:0 0 14px;font-size:clamp(10px,1.05vw,18px);color:#d6bb99;letter-spacing:.03em}.ymg__eyebrow b{color:#f7ba62;font-weight:600}
@@ -1069,13 +1055,15 @@
 
 <!-- YANKOM / Сцена 08. Расположение: карта с меткой офиса и контакты. Карта: Leaflet + OpenStreetMap (подключаются из cdnjs при показе сцены), цвета приведены к стилю сайта. Координаты офиса: 55.1543963, 61.3030088 (Гостевая улица, 1, Шершни, Челябинск; найдены по адресу в OpenStreetMap, проверить на месте). -->
 <style>
-.yml{--yml-nav:96px;position:relative;z-index:4;min-height:100svh;background:#071321;color:#f3f6fb;font-family:'Montserrat',Arial,sans-serif;border-top:1px solid #8291a32c;overflow:hidden}
+.yml{--yml-nav:96px;position:relative;z-index:4;min-height:100svh;background:#071321;color:#f3f6fb;font-family:'Montserrat',Arial,sans-serif;overflow:hidden}
 .yml *{box-sizing:border-box}
 .yml__map{position:absolute;inset:0;z-index:0;isolation:isolate;background:#071321}
 .yml__map .leaflet-tile-pane{filter:invert(1) hue-rotate(195deg) brightness(.85) saturate(.3) contrast(.95)}
 .yml__map.leaflet-container{background:#071321;font-family:'Montserrat',Arial,sans-serif}
 /* Тёмные участки карты выравниваются до фона страницы #071321 (светлее него остаётся только рисунок карты). */
 .yml__map:after{content:'';position:absolute;inset:0;z-index:450;pointer-events:none;background:#071321;mix-blend-mode:lighten}
+/* Верх карты плавно сходится в фон страницы (нет резкого стыка с галереей); нижний край с футером оставлен чётким. */
+.yml__map:before{content:'';position:absolute;inset:0;z-index:460;pointer-events:none;background:linear-gradient(180deg,#071321 0,#071321cc 40px,transparent 190px)}
 .yml__map .leaflet-control-zoom{border:1px solid #8395ac50;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px #0007}
 .yml__map .leaflet-control-zoom a{width:38px;height:38px;line-height:38px;background:#0b1a2dee;color:#e3e8f0;border-bottom:1px solid #8395ac40;font-size:20px}
 .yml__map .leaflet-control-zoom a:hover{background:#ffb341;color:#132034}
@@ -1224,8 +1212,7 @@
    <h2 class="ymf__title">Разделы</h2>
    <ul class="ymf__list ymf__list--cols">
     <li><a href="#ymCompany">О компании</a></li>
-    <li><a href="#ymScene">Перевозки</a></li>
-    <li><a href="#ymScene4">Автопарк</a></li>
+    <li><a href="#ymScene">С чем мы работаем</a></li>
     <li><a href="#ymPrices">Цены</a></li>
     <li><a href="#ymScene5">Команда</a></li>
     <li><a href="#ymGallery">Галерея</a></li>
